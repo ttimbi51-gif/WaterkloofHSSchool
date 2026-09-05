@@ -1,0 +1,86 @@
+:root {
+  --navy: #071933;
+  --navy-2: #0e2a4f;
+  --accent: #f6b319;
+  --accent-2: #2ec4b6;
+  --text: #f7f9fc;
+  --muted: #d5def2;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #071933 0%, #0f2d56 100%);
+  color: var(--text);
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: default;
+}
+
+img { max-width: 100%; display: block; }
+
+.page-shell { min-height: 100vh; display: flex; flex-direction: column; }
+
+.topbar {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 20px 30px; background: rgba(7, 25, 51, 0.95);
+  border-bottom: 2px solid rgba(246, 179, 25, 0.35);
+}
+
+.brand { display: flex; align-items: center; gap: 15px; }
+.brand img { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 3px solid var(--accent); }
+.brand h1 { margin: 0; font-size: 1.6rem; font-weight: 700; }
+.brand p { margin: 2px 0 0; color: var(--muted); font-weight: 500; }
+
+.clock-card {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.16);
+  border-radius: 16px; padding: 14px 18px; text-align: right; min-width: 220px;
+}
+
+#time { font-size: 1.8rem; font-weight: 700; letter-spacing: 1px; }
+#date { color: var(--muted); margin-top: 4px; font-size: 0.95rem; }
+
+.ticker { background: var(--accent); color: #111; overflow: hidden; padding: 10px 0; }
+.ticker-track { display: flex; width: max-content; animation: ticker 18s linear infinite; }
+.ticker-track span { padding: 0 40px; font-weight: 600; white-space: nowrap; }
+@keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+.dashboard { display: grid; grid-template-columns: 1.05fr 1.45fr 0.95fr; gap: 20px; padding: 24px 30px 30px; flex: 1; }
+.left-panel, .center-panel, .right-panel { display: flex; flex-direction: column; gap: 18px; }
+
+.card {
+  background: rgba(14, 42, 79, 0.95); border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 18px; padding: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+}
+
+.eyebrow { margin: 0 0 8px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; color: var(--accent-2); font-weight: 700; }
+.hero-card h2 { margin: 0 0 10px; font-size: 1.55rem; }
+.hero-card p, .weather-card p, .card li, .card span { color: var(--muted); line-height: 1.6; }
+.countdown { font-size: 1.4rem; font-weight: 700; color: var(--accent); }
+.weather-card h3 { margin: 6px 0 4px; font-size: 2rem; }
+
+.hero-slide { position: relative; min-height: 480px; border-radius: 22px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.28); background: #08172f; }
+.hero-slide img { width: 100%; height: 100%; object-fit: contain; object-position: center; background: #08172f; }
+.overlay { position: absolute; inset: auto 0 0 0; background: linear-gradient(180deg, transparent 0%, rgba(7,25,51,0.95) 100%); padding: 24px; }
+.overlay h2 { margin: 0 0 8px; font-size: 1.7rem; }
+.overlay p { margin: 0; color: var(--muted); }
+
+.card ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+.card li { padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
+.stats-list { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.stats-list div { background: rgba(255,255,255,0.06); border-radius: 12px; padding: 10px; }
+.stats-list strong { display: block; font-size: 1.1rem; color: var(--accent); }
+.stats-list span { font-size: 0.9rem; }
+
+footer { display: flex; justify-content: space-between; align-items: center; padding: 16px 30px 24px; color: var(--muted); background: rgba(7,25,51,0.9); border-top: 1px solid rgba(255,255,255,0.08); }
+
+@media (max-width: 1100px) { .dashboard { grid-template-columns: 1fr; } .hero-slide { min-height: 320px; } }
+@media (max-width: 720px) { .topbar, .dashboard, footer { padding-left: 16px; padding-right: 16px; } .topbar { flex-direction: column; align-items: flex-start; gap: 12px; } .clock-card { width: 100%; text-align: left; } .brand h1 { font-size: 1.2rem; } footer { flex-direction: column; align-items: flex-start; gap: 6px; } }
