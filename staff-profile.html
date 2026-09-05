@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Staff Profile – Waterkloof Hills Secondary School</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="top-bar">
+    <div class="container">
+      <div class="left">📍 2 Spain Drive, Waterkloof Ext 5, Rustenburg, 0299</div>
+      <div class="right">📞 076 809 0560 &nbsp;&nbsp; ✉ admin@waterkloofhillsschool.co.za</div>
+    </div>
+  </div>
+
+  <header>
+    <div class="container nav-container">
+      <div class="logo">
+        <img src="images/logo.jpg" alt="Waterkloof Hills Secondary School Logo">
+        <div>
+          <h2>Waterkloof Hills</h2>
+          <p>Wisdom Is Power</p>
+        </div>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="index.html#about">About Us</a></li>
+          <li><a href="school-info.html">School Info</a></li>
+          <li><a href="subjects.html">Subjects</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="calendar.html">Calendar</a></li>
+          <li><a href="staff-tour.html">Staff Tour</a></li>
+          <li><a href="admissions.html">Admissions</a></li>
+        </ul>
+      </nav>
+      <a href="admissions.html" class="apply-btn">Apply Now</a>
+    </div>
+  </header>
+
+  <section class="page-hero staff-profile-hero">
+    <div class="container">
+      <h1>Staff <span class="orange">Profile</span></h1>
+      <p>Learn more about the dedication, role and values of the Waterkloof Hills staff member you selected.</p>
+    </div>
+  </section>
+
+  <section class="profile-page">
+    <div class="container" id="staffProfileTarget"></div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <h3>Waterkloof Hills Secondary School</h3>
+      <p>Wisdom Is Power</p>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="school-info.html">School Info</a>
+        <a href="subjects.html">Subjects</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="calendar.html">Calendar</a>
+        <a href="admissions.html">Admissions</a>
+        <a href="staff-tour.html">Staff Tour</a>
+      </div>
+      <p class="copyright">© 2026 Waterkloof Hills Secondary School. All rights reserved. Designed and developed by TIMBI OMNI GROUP HOLDING TECHNOLOGIES | 0762234837 | ttimbi51@gmail.com</p>
+    </div>
+  </footer>
+
+  <script src="js/site.js"></script>
+  <script>
+    const profileData = {
+      principal_mokoena_j: {
+        name: 'Jan S. Mokoena',
+        role: 'Principal',
+        image: 'images/staff/Principal_MOKOENA_J.jpg',
+        bio: 'Jan leads Waterkloof Hills with a focus on discipline, academic excellence and building a supportive school culture.',
+        message: 'Our aim is to ensure every learner develops academically, socially and personally while feeling safe and respected.',
+        extra: 'Contact the school office for appointments and school leadership enquiries.'
+      },
+      deputy_principal_nong_j: {
+        name: 'N. Nong',
+        role: 'Deputy Principal',
+        image: 'images/staff/Deputy_Principal_NONG_J.jpg',
+        bio: 'N. Nong supports teaching quality, learner support systems and the daily operation of school programmes.',
+        message: 'I work closely with teachers, parents and learners to create a stable, respectful learning environment.',
+        extra: 'Learner discipline, academic support and operational coordination are key areas of focus.'
+      },
+      educators_batantse_r: {
+        name: 'R. Batantse',
+        role: 'Educator',
+        image: 'images/staff/Educators_BATANTSE_R.jpg',
+        bio: 'R. Batantse brings energy to the classroom and encourages learners to explore their strengths.',
+        message: 'My goal is to help every learner build confidence and reach their academic potential.',
+        extra: 'Special interest in learner support and career readiness.'
+      },
+      educators_diswai_k: {
+        name: 'K. Diswai',
+        role: 'Educator',
+        image: 'images/staff/Educators_DISWAI_K.jpg',
+        bio: 'K. Diswai is committed to strong teaching practices and personal learner growth.',
+        message: 'I focus on building classroom routines that support both discipline and creativity.',
+        extra: 'Available for extra help sessions when learners need it most.'
+      },
+      educators_joseph_z: {
+        name: 'Z. Joseph',
+        role: 'Educator',
+        image: 'images/staff/Educators_JOSEPH_Z.jpg',
+        bio: 'Z. Joseph creates engaging lessons that help learners develop practical knowledge and skills.',
+        message: 'I want learners to feel confident in their ability to solve problems and think critically.',
+        extra: 'Passionate about learner participation and teamwork.'
+      },
+      educators_khupari_l: {
+        name: 'L. Khupari',
+        role: 'Educator',
+        image: 'images/staff/Educators_KHUPARI_L.jpg',
+        bio: 'L. Khupari supports learners through subject mastery and exam preparation.',
+        message: 'I build strong study habits and support learners with extra guidance when needed.',
+        extra: 'Student-centred teaching is at the heart of every lesson.'
+      },
+      educators_langa_n: {
+        name: 'N. Langa',
+        role: 'Educator',
+        image: 'images/staff/Educators_LANGA_N.jpg',
+        bio: 'N. Langa builds a classroom culture focused on respect, learning and improving results.',
+        message: 'Our work together is about steady progress and celebrating learner achievements.',
+        extra: 'Supports academic growth for all grades.'
+      },
+      educators_makhubalo_o: {
+        name: 'O. Makhubalo',
+        role: 'Educator',
+        image: 'images/staff/Educators_MAKHUBALO_O.jpg',
+        bio: 'O. Makhubalo encourages practical learning and a strong understanding of subject material.',
+        message: 'I work to make complex lessons easier to follow and remember.',
+        extra: 'A strong supporter of science, maths and life skills learning.'
+      },
+      educators_mekgoe_k: {
+        name: 'K. Mekgoe',
+        role: 'Educator',
+        image: 'images/staff/Educators_MEKGOE_K.jpg',
+        bio: 'K. Mekgoe builds strong study habits and helps learners develop confidence across subjects.',
+        message: 'I believe every learner can improve with clear guidance and practice.',
+        extra: 'Supports learners through regular feedback and revision activities.'
+      },
+      general_makunye_m: {
+        name: 'M. Makunye',
+        role: 'Support Staff',
+        image: 'images/staff/Educators_MAKUNYE_M.jpg',
+        bio: 'M. Makunye supports the school environment and helps maintain a safe, organised space for learners.',
+        message: 'I contribute to the daily smooth running of the school and support learners and staff where needed.',
+        extra: 'Part of the school support team that keeps operations moving well.'
+      },
+      educators_mitton_d: {
+        name: 'D. Mitton',
+        role: 'Educator',
+        image: 'images/staff/Educators_MITTON_D.jpg',
+        bio: 'D. Mitton encourages learner involvement, collaboration and academic responsibility.',
+        message: 'I help learners take ownership of their learning journey.',
+        extra: 'Strong focus on classroom discussion and practical tasks.'
+      },
+      educators_mogale_j: {
+        name: 'J. Mogale',
+        role: 'HOD',
+        image: 'images/staff/Educators_MOGALE_J.jpg',
+        bio: 'J. Mogale supports mathematics learning and exam preparation with care.',
+        message: 'I work to make maths accessible and engaging for every learner.',
+        extra: 'Regular support sessions available for learners needing extra practice.'
+      },
+      educators_mohale_t: {
+        name: 'T. Mohale',
+        role: 'HOD',
+        image: 'images/staff/Educators_MOHALE_T.jpg',
+        bio: 'T. Mohale encourages learners to reach their full academic potential.',
+        message: 'I believe in consistent effort, strong discipline and positive reinforcement.',
+        extra: 'Focuses on learner confidence in classroom learning.'
+      },
+      educators_motshegwe_n: {
+        name: 'N. Motshegwe',
+        role: 'Educator',
+        image: 'images/staff/Educators_MOTSHEGWE_N.jpg',
+        bio: 'N. Motshegwe works with learners to strengthen classroom skills and behaviour.',
+        message: 'Our classroom is a place for growth and mutual respect.',
+        extra: 'Helps learners build consistency in their daily work.'
+      },
+      educators_moyo_t: {
+        name: 'T. Moyo',
+        role: 'Educator',
+        image: 'images/staff/Educators_MOYO_T.jpg',
+        bio: 'T. Moyo values learner participation and personal development in every subject.',
+        message: 'I support learners who want to do more than just meet expectations.',
+        extra: 'Encourages teamwork, projects and active learning.'
+      },
+      educators_myathaza_n: {
+        name: 'N. Myathaza',
+        role: 'Educator',
+        image: 'images/staff/Educators_MYATHAZA_N.jpg',
+        bio: 'N. Myathaza guides learners through academic challenges with patience and clarity.',
+        message: 'I encourage learners to ask questions and learn from every task.',
+        extra: 'Focuses on supportive lessons and exam readiness.'
+      },
+      educators_ngcobo_p: {
+        name: 'P. Ngcobo',
+        role: 'Educator',
+        image: 'images/staff/Educators_NGCOBO_P.jpg',
+        bio: 'P. Ngcobo supports classroom quality and learner mentorship.',
+        message: 'I work to create a space where every learner feels confident to participate.',
+        extra: 'Priority is on strong academic habits and respectful behaviour.'
+      },
+      educators_nkwana_p: {
+        name: 'P. Nkwana',
+        role: 'HOD',
+        image: 'images/staff/Educators_NKWANA_P.jpg',
+        bio: 'P. Nkwana helps learners reach subject mastery and stay motivated.',
+        message: 'I believe persistence and support lead to success.',
+        extra: 'Learner encouragement and consistent feedback are key strengths.'
+      },
+      educators_ntimane_a: {
+        name: 'A. Ntimane',
+        role: 'Educator',
+        image: 'images/staff/Educators_NTIMANE_A.jpg',
+        bio: 'A. Ntimane supports Grades 10–12 with careful subject planning and guidance.',
+        message: 'I help learners manage academic work and prepare for exams with confidence.',
+        extra: 'Emphasizes strong organisation and revision habits.'
+      },
+      educators_ntshole_r: {
+        name: 'R. Ntshole',
+        role: 'Educator',
+        image: 'images/staff/Educators_NTSHOLE_R.jpg',
+        bio: 'R. Ntshole focuses on learner progress, discipline and classroom success.',
+        message: 'I encourage learners to take active steps toward better results.',
+        extra: 'Builds classroom routines that support steady improvement.'
+      },
+      educators_ntswe_t: {
+        name: 'T. Ntswe',
+        role: 'Educator',
+        image: 'images/staff/Educators_NTSWE_T.jpg',
+        bio: 'T. Ntswe is dedicated to academic standards and learner care.',
+        message: 'I support learners through structured lessons and regular review.',
+        extra: 'Focuses on positive learning habits and classroom engagement.'
+      },
+      educators_ralimo_m: {
+        name: 'M. Ralimo',
+        role: 'Educator',
+        image: 'images/staff/Educators_RALIMO_M.jpg',
+        bio: 'M. Ralimo brings strong classroom leadership and learner support to each lesson.',
+        message: 'I help learners feel safe asking questions and improving their work.',
+        extra: 'Encourages consistent preparation and study practice.'
+      },
+      educators_ramokopelwa_m: {
+        name: 'M. Ramokopelwa',
+        role: 'Educator',
+        image: 'images/staff/Educators_RAMOKOPELWA_M.jpg',
+        bio: 'M. Ramokopelwa focuses on classroom excellence and helping learners succeed.',
+        message: 'I support learners with strong instruction and personal encouragement.',
+        extra: 'Regular feedback and focused practice are important to every lesson.'
+      },
+      educators_rasephehi_r: {
+        name: 'R. Rasephehi',
+        role: 'Educator',
+        image: 'images/staff/Educators_RASEPHEHI_R.jpg',
+        bio: 'R. Rasephehi helps learners achieve strong results through practice and support.',
+        message: 'I believe in building learner confidence with clear guidance.',
+        extra: 'Encourages learners to take pride in their schoolwork.'
+      },
+      educators_tsatsi_d: {
+        name: 'D. Tsatsi',
+        role: 'Educator',
+        image: 'images/staff/Educators_TSATSI_D.jpg',
+        bio: 'D. Tsatsi encourages learner involvement and academic responsibility.',
+        message: 'I support learners in developing good habits and strong results.',
+        extra: 'Workshops and review sessions help learners stay on track.'
+      },
+      educators_van_straten_m: {
+        name: 'M. Van Straten',
+        role: 'Educator',
+        image: 'images/staff/Educators_VAN_STRATEN_M.jpg',
+        bio: 'M. Van Straten builds confidence in maths, science and life skills subjects.',
+        message: 'I aim to make lessons clear, interesting and useful for learners.',
+        extra: 'Learners are encouraged to participate actively in class.'
+      },
+      admin_gedu_a: {
+        name: 'A. Gedu',
+        role: 'Administration',
+        image: 'images/staff/Admin_GEDU_A.jpg',
+        bio: 'A. Gedu helps the school with finance, administration and parent liaison.',
+        message: 'I work behind the scenes to ensure the school office runs smoothly.',
+        extra: 'Key contact for registration and admissions paperwork.'
+      },
+      admin_staff_mbuyisa_c: {
+        name: 'C. Mbuyisa',
+        role: 'Administration',
+        image: 'images/staff/Admin_Staff_MBUYISA_C.jpg',
+        bio: 'C. Mbuyisa manages records, registration and school documentation for learners.',
+        message: 'I make sure learner data stays accurate and parents are supported through the process.',
+        extra: 'Available to help with school forms and admissions questions.'
+      },
+      admin_staff_seganeno_k: {
+        name: 'K. Seganeno',
+        role: 'Administration',
+        image: 'images/staff/Admin_Staff_SEGANENO_K.jpg',
+        bio: 'K. Seganeno coordinates school documents and supports families with paperwork.',
+        message: 'I ensure administration tasks are completed quickly and clearly.',
+        extra: 'Helps parents, learners and teachers stay organised.'
+      },
+      general_jambato_g: {
+        name: 'G. Jambato',
+        role: 'Support Staff',
+        image: 'images/staff/General_JAMBATO_G.jpg',
+        bio: 'G. Jambato keeps the school clean, safe and welcoming for everyone.',
+        message: 'I help create a comfortable environment where learners can focus on learning.',
+        extra: 'Part of the team that maintains the campus every day.'
+      },
+      general_mahopo_k: {
+        name: 'K. Mahopo',
+        role: 'Support Staff',
+        image: 'images/staff/General_MAHOPO_K.jpg',
+        bio: 'K. Mahopo supports school safety and learner wellbeing across the campus.',
+        message: 'I keep the environment safe and help learners when they need assistance.',
+        extra: 'Works closely with staff and learners to maintain order.'
+      },
+      general_makgoka_t: {
+        name: 'T. Makgoka',
+        role: 'Support Staff',
+        image: 'images/staff/General_MAKGOKA_T.jpg',
+        bio: 'T. Makgoka helps with maintenance and supports daily school operations.',
+        message: 'I work behind the scenes to make sure the school runs smoothly.',
+        extra: 'Supports both learners and staff with practical tasks.'
+      },
+      general_matshwisa_k: {
+        name: 'K. Matshwisa',
+        role: 'Support Staff',
+        image: 'images/staff/General_MATSHWISA_K.jpg',
+        bio: 'K. Matshwisa ensures facilities are clean and well maintained for learners.',
+        message: 'I take pride in keeping the school safe and welcoming for everyone.',
+        extra: 'Responsible for maintenance and campus cleanliness.'
+      },
+      general_mmokwa_m: {
+        name: 'M. Mmokwa',
+        role: 'Support Staff',
+        image: 'images/staff/General_MMOKWA_M.jpg',
+        bio: 'M. Mmokwa supports the school with logistics and daily programme support.',
+        message: 'I help keep the school organised and the day running smoothly.',
+        extra: 'Important role in school operations behind the scenes.'
+      },
+      general_mokwampe_k: {
+        name: 'K. Mokwampe',
+        role: 'Support Staff',
+        image: 'images/staff/General_MOKWAMPE_K.jpg',
+        bio: 'K. Mokwampe helps maintain a clean and orderly campus for learners.',
+        message: 'I work to make sure learners have a good environment for learning.',
+        extra: 'Supports daily school cleanliness and student comfort.'
+      },
+      general_nkosi_g: {
+        name: 'G. Nkosi',
+        role: 'Support Staff',
+        image: 'images/staff/General_NKOSI_G.jpg',
+        bio: 'G. Nkosi works to keep classrooms and corridors in good order.',
+        message: 'I help maintain a calm, organised learning space for everyone.',
+        extra: 'Supports the school community with everyday facility care.'
+      },
+      general_ratsosane_d: {
+        name: 'D. Ratsosane',
+        role: 'Support Staff',
+        image: 'images/staff/General_RATSOSANE_D.jpg',
+        bio: 'D. Ratsosane supports school routines and operations with care.',
+        message: 'I make sure the school environment remains neat and safe throughout the day.',
+        extra: 'A dependable member of the support staff team.'
+      },
+      general_senyane_r: {
+        name: 'R. Senyane',
+        role: 'Support Staff',
+        image: 'images/staff/General_SENYANE_R.jpg',
+        bio: 'R. Senyane cares for the school environment and helps learners feel safe.',
+        message: 'I help create a welcoming atmosphere for learners and staff.',
+        extra: 'Works as part of the school operations and safety team.'
+      },
+      general_sesampi_m: {
+        name: 'M. Sesampi',
+        role: 'Support Staff',
+        image: 'images/staff/General_SESAMPI_M.jpg',
+        bio: 'M. Sesampi keeps school spaces friendly and orderly throughout the day.',
+        message: 'My goal is to maintain a clean and comfortable campus for learning.',
+        extra: 'Supports all learners with a clean school environment.'
+      },
+      general_tlhabane_t: {
+        name: 'T. Tlhabane',
+        role: 'Support Staff',
+        image: 'images/staff/General_TLHABANE_T.jpg',
+        bio: 'T. Tlhabane helps the school run smoothly through everyday support tasks.',
+        message: 'I ensure the campus is looked after and ready for every school day.',
+        extra: 'Contributes to a safe and organised school environment.'
+      }
+    };
+
+    const profileId = getQueryParam('id');
+    renderStaffProfile(profileData[profileId], 'staffProfileTarget');
+  </script>
+</body>
+</html>

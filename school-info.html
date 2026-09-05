@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>School Information – Waterkloof Hills Secondary School</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    .info-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 25px 0 10px;
+    }
+
+    .info-nav a {
+      display: inline-block;
+      padding: 10px 18px;
+      border: 2px solid #0c2d5a;
+      border-radius: 999px;
+      color: #0c2d5a;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      transition: all 0.25s ease;
+    }
+
+    .info-nav a:hover {
+      background: #0c2d5a;
+      color: white;
+    }
+
+    .info-section {
+      padding: 80px 0;
+    }
+
+    .info-section:nth-child(even) {
+      background: #f9f9f9;
+    }
+
+    .section-title {
+      font-size: 34px;
+      color: #0c2d5a;
+      margin-bottom: 14px;
+    }
+
+    .section-lead {
+      max-width: 820px;
+      color: #555;
+      line-height: 1.8;
+      margin-bottom: 30px;
+    }
+
+    .quote-box {
+      background: linear-gradient(135deg, #0c2d5a, #123b74);
+      color: white;
+      padding: 34px;
+      border-radius: 14px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.12);
+    }
+
+    .quote-box blockquote {
+      font-size: 20px;
+      line-height: 1.8;
+      font-style: italic;
+      margin-bottom: 18px;
+    }
+
+    .quote-box .signature {
+      font-weight: 600;
+      color: #f7941d;
+    }
+
+    .pillars-grid,
+    .curriculum-grid,
+    .uniform-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin-top: 30px;
+    }
+
+    .panel {
+      background: white;
+      border-radius: 12px;
+      padding: 28px;
+      box-shadow: 0 4px 18px rgba(0,0,0,.08);
+      border-top: 4px solid #f7941d;
+    }
+
+    .panel h3 {
+      color: #0c2d5a;
+      margin-bottom: 12px;
+      font-size: 20px;
+    }
+
+    .panel p,
+    .panel li {
+      color: #555;
+      line-height: 1.8;
+      font-size: 15px;
+    }
+
+    .panel ul {
+      padding-left: 18px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .badge {
+      background: #f0f4f8;
+      color: #0c2d5a;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    details {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 18px rgba(0,0,0,.08);
+      margin-bottom: 14px;
+      overflow: hidden;
+    }
+
+    summary {
+      cursor: pointer;
+      padding: 18px 22px;
+      font-weight: 700;
+      color: #0c2d5a;
+      background: #f7fafc;
+      list-style: none;
+    }
+
+    summary::-webkit-details-marker { display: none; }
+
+    details .details-body {
+      padding: 20px 22px 24px;
+      color: #555;
+      line-height: 1.8;
+    }
+
+    .conduct-grid {
+      display: grid;
+      gap: 24px;
+      margin-top: 28px;
+    }
+
+    .mini-card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 18px rgba(0,0,0,.08);
+      padding: 24px;
+    }
+
+    .mini-card h3 {
+      color: #0c2d5a;
+      margin-bottom: 10px;
+    }
+
+    .mini-card ul {
+      padding-left: 18px;
+      color: #555;
+      line-height: 1.8;
+    }
+
+    @media (max-width: 768px) {
+      .pillars-grid,
+      .curriculum-grid,
+      .uniform-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .quote-box blockquote {
+        font-size: 18px;
+      }
+    }
+
+    @media (max-width: 1200px) {
+      header .nav-container {
+        flex-wrap: wrap;
+        gap: 14px;
+      }
+
+      header nav ul {
+        flex-wrap: wrap;
+        gap: 16px;
+      }
+    }
+
+    @media (max-width: 900px) {
+      header .nav-container {
+        justify-content: center;
+      }
+
+      header nav ul {
+        justify-content: center;
+      }
+
+      .apply-btn {
+        margin-top: 6px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-bar">
+    <div class="container">
+      <div class="left">
+        📍 2 Spain Drive, Waterkloof Ext 5, Rustenburg, 0299
+      </div>
+      <div class="right">
+        📞 076 809 0560 &nbsp;&nbsp; ✉ admin@waterkloofhillsschool.co.za
+      </div>
+    </div>
+  </div>
+
+  <header>
+    <div class="container nav-container">
+      <div class="logo">
+        <img src="images/logo.jpg" alt="Waterkloof Hills Secondary School Logo">
+        <div>
+          <h2>Waterkloof Hills</h2>
+          <p>Wisdom Is Power</p>
+        </div>
+      </div>
+
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="index.html#about">About Us</a></li>
+          <li><a href="index.html#academics">Academics</a></li>
+          <li><a href="school-info.html" style="color:#f7941d;">School Info</a></li>
+          <li><a href="subjects.html">Subjects</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="staff-tour.html">Staff Tour</a></li>
+          <li><a href="calendar.html">Calendar</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <a href="admissions.html" class="apply-btn">Apply Now</a>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <div class="container">
+      <h1>School <span class="orange" data-content="aboutHeading" data-fallback="Information">Information</span></h1>
+      <p data-content="aboutSummary" data-fallback="Principal’s message, mandate, curriculum, uniform guide and code of conduct for Waterkloof Hills Secondary School.">Principal’s message, mandate, curriculum, uniform guide and code of conduct for Waterkloof Hills Secondary School.</p>
+      <div class="info-nav">
+        <a href="#principal">Principal</a>
+        <a href="#mandate">Mandate</a>
+        <a href="#subjects-uniform">Subjects & Uniform</a>
+        <a href="#conduct">Code of Conduct</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="principal" class="info-section">
+    <div class="container">
+      <h2 class="section-title">Message from the Principal</h2>
+      <p class="section-lead">A welcoming note from the principal that reflects the school’s purpose, values and commitment to learner success.</p>
+      <div class="quote-box">
+        <blockquote>
+          “I believe the children are our future. Teach them well and let them lead the way.” These words remind us that every learner entering the gates of Waterkloof Hills Secondary School carries the potential to change the world. As we guide our Grade 8 to 12 learners through their most transformative years, our mission is to nurture holistic, resilient, and independent citizens prepared for the 21st century.
+        </blockquote>
+        <blockquote>
+          We are proud to offer a future-proofed learning environment. Our 32 smart classrooms and interactive technologies support an academically challenging curriculum. Excellence is a continuous journey we take together as learners, staff and parents.
+        </blockquote>
+        <blockquote>
+          We also believe that true success extends beyond the classroom. Through Saturday extra classes, RCL leadership opportunities and a safe, supportive environment, we help every learner reach their personal best.
+        </blockquote>
+        <div class="signature">
+          Jan Samuel Mokoena<br>
+          Principal, Waterkloof Hills Secondary School
+        </div>
+      </div>
+      <p style="max-width:820px;margin-top:18px;color:#555;line-height:1.8;">
+        Waterkloof Hills Secondary School opened in 2022 and has been serving learners for 4 years.
+      </p>
+    </div>
+  </section>
+
+  <section id="mandate" class="info-section">
+    <div class="container">
+      <h2 class="section-title">School Mandate</h2>
+      <p class="section-lead">Guided by the South African Schools Act, the school commits itself to the high-quality education and holistic support of every learner.</p>
+      <div class="pillars-grid">
+        <div class="panel">
+          <h3>High Standards</h3>
+          <p data-content="mission" data-fallback="We strive for high standards of performance and professionalism by equipping learners with literacy, numeracy and problem-solving skills for lifelong success.">We strive for high standards of performance and professionalism by equipping learners with literacy, numeracy and problem-solving skills for lifelong success.</p>
+        </div>
+        <div class="panel">
+          <h3>Whole-Child Development</h3>
+          <p data-content="values" data-fallback="Education goes beyond the classroom. We support the physical, emotional, social and moral growth of learners so they become compassionate and responsible citizens.">Education goes beyond the classroom. We support the physical, emotional, social and moral growth of learners so they become compassionate and responsible citizens.</p>
+        </div>
+        <div class="panel">
+          <h3>Safe and Disciplined Environment</h3>
+          <p>We provide a secure and motivating environment where mutual respect is the standard and the Code of Conduct supports discipline and accountability.</p>
+        </div>
+        <div class="panel">
+          <h3>Equitable Access</h3>
+          <p>As a community-centred institution, we embrace diversity and work to eliminate discrimination so that every child feels seen and valued.</p>
+        </div>
+      </div>
+      <div class="media-grid" style="margin-top:32px;">
+        <div class="media-card">
+          <img src="images/School%20Pics%203/PHOTO-2024-08-29-12-38-32.jpg" alt="School values poster">
+          <div class="media-body">
+            <h3>Values in Action</h3>
+            <p>Honesty, obedience, perseverance and empathy are the pillars that shape our learner culture.</p>
+          </div>
+        </div>
+        <div class="media-card">
+          <img src="images/School%20Pics%203/PHOTO-2026-02-05-10-54-41.jpg" alt="School corridor">
+          <div class="media-body">
+            <h3>Supportive Environment</h3>
+            <p>Clean, structured spaces help protect teaching time and support a disciplined school day.</p>
+          </div>
+        </div>
+        <div class="media-card">
+          <img src="images/schoolpictures%20(1)/IMG_9030.jpeg" alt="School field">
+          <div class="media-body">
+            <h3>Well-Rounded Development</h3>
+            <p>Open grounds and sporting spaces encourage balance, wellness and teamwork.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="subjects-uniform" class="info-section">
+    <div class="container">
+      <h2 class="section-title">Subjects and Uniform</h2>
+      <p class="section-lead">Below is a clear view of the subjects offered and the official uniform expectations for learners at Waterkloof Hills Secondary School.</p>
+
+      <div class="curriculum-grid">
+        <div class="panel">
+          <h3>Grade 8 – 9 Subjects</h3>
+          <div class="badge-row">
+            <span class="badge">Mathematics</span>
+            <span class="badge">Natural Science</span>
+            <span class="badge">EMS</span>
+            <span class="badge">English HL</span>
+            <span class="badge">Afrikaans FAL</span>
+            <span class="badge">Social Sciences</span>
+            <span class="badge">Technology</span>
+            <span class="badge">Creative Arts</span>
+            <span class="badge">Life Orientation</span>
+          </div>
+        </div>
+        <div class="panel">
+          <h3>Grade 10 – 12 Subjects</h3>
+          <div class="badge-row">
+            <span class="badge">Mathematics</span>
+            <span class="badge">Mathematical Literacy</span>
+            <span class="badge">English HL</span>
+            <span class="badge">Afrikaans FAL</span>
+            <span class="badge">Physical Sciences</span>
+            <span class="badge">Life Sciences</span>
+            <span class="badge">History</span>
+            <span class="badge">Geography</span>
+            <span class="badge">Tourism</span>
+            <span class="badge">Business Studies</span>
+            <span class="badge">Life Orientation</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="uniform-grid">
+        <div class="panel" id="uniform">
+          <h3>Girls Uniform</h3>
+          <ul>
+            <li>Grey flannel skirt with a white open-neck short-sleeve shirt, or a white short/long sleeve shirt with a top button and tie.</li>
+            <li>Blue anklet school socks and black school lace-up or bar shoes.</li>
+            <li>School blazer, jersey, cardigan or pullover may be worn when cold.</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h3>Boys Uniform</h3>
+          <ul>
+            <li>Grey flannel trousers with a black leather belt, blue school socks and black leather shoes.</li>
+            <li>White short-sleeved shirt with the school badge or a white short/long sleeve shirt with tie.</li>
+            <li>School blazer, jersey or pullover may be worn when cold.</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h3>Sports Uniform</h3>
+          <ul>
+            <li>Full tracksuit; shorts are optional with the matching sports golf shirt.</li>
+            <li>Tekkies must be predominantly black or white.</li>
+            <li>Sports wear may only be worn on Wednesdays, at PET and sports occasions.</li>
+            <li>The tracksuit may be worn during winter on stipulated dates except Mondays, which remain formal uniform only.</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h3>Uniform Standard</h3>
+          <p>Learners must wear school uniform neatly and with pride. Uniforms build discipline, belonging and a sense of unity within the school community.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="conduct" class="info-section">
+    <div class="container">
+      <h2 class="section-title">Code of Conduct</h2>
+      <p class="section-lead">The school code of conduct applies to all learners while in uniform, on school premises, at school events and when representing the school.</p>
+
+      <div class="conduct-grid">
+        <details open>
+          <summary>1. Preamble</summary>
+          <div class="details-body">
+            Waterkloof Hills Secondary School is a section 21 fee-paying school located in Rustenburg Local Education Office under Bojanala District. The SMT and SGB are committed to a conducive environment for quality learning, teaching and protection of teaching time. Parents are expected to support and comply with the school’s code of conduct.
+          </div>
+        </details>
+
+        <details>
+          <summary>2. Legal Framework</summary>
+          <div class="details-body">
+            The code is based on the Constitution of South Africa, the South African Schools Act, ministerial guidelines, education laws amendments, the Promotion of Administrative Justice Act, the Public Premises Act and the Basic Education Laws Amendment Act, 2024.
+          </div>
+        </details>
+
+        <details>
+          <summary>3. Purpose</summary>
+          <div class="details-body">
+            To outline how a learner is expected to conduct himself or herself on the school premises and at all WHSS events, and to protect the school uniform at all times.
+          </div>
+        </details>
+
+        <details>
+          <summary>4. Vision and Mission</summary>
+          <div class="details-body">
+            <strong>Mission:</strong> A caring and supportive community for excellence in basic education.<br><br>
+            <strong>Vision:</strong> To produce a learner who is marketable, accountable, motivated and able to face the outside world as a respectable and responsible adult.
+          </div>
+        </details>
+
+        <details>
+          <summary>5. WHSS Values</summary>
+          <div class="details-body">
+            Honesty, obedience, perseverance and empathy.
+          </div>
+        </details>
+
+        <details>
+          <summary>6. School Rules</summary>
+          <div class="details-body">
+            Learners must behave respectfully, attend school and classes regularly, avoid bunking, arrive on time, and never disrupt learning. Cellphones are not allowed unless permission is granted for a specific subject. Parents or guardians must report absences and support learners in following the code of conduct.
+          </div>
+        </details>
+
+        <details>
+          <summary>7. Uniform Rules</summary>
+          <div class="details-body">
+            Learners are expected to wear the correct school uniform at all times. No additions or deviations are allowed. Learners with disability or cultural uniform needs may apply through the principal for consideration.
+          </div>
+        </details>
+      </div>
+
+      <div class="mini-card" style="margin-top:24px;">
+        <h3>Need the full document?</h3>
+        <p style="margin-bottom:0;">This page gives families a structured, readable view of the key rules. If you want, I can also turn the full code of conduct into a downloadable PDF-style page later.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="company-brand">
+        <img class="footer-logo" src="timbi%20logo/07CA41AA-2DFF-49DC-8356-94378EE87466.png" alt="TIMBI OMNI GROUP logo">
+        <div>
+          <h3>TIMBI OMNI GROUP HOLDINGS</h3>
+          <p>Tshireletso Timbi - IT specialist<br>Siyabonga Ditlhake - IT Specialist</p>
+        </div>
+      </div>
+      <h3>Waterkloof Hills Secondary School</h3>
+      <p>Wisdom Is Power</p>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="school-info.html">School Info</a>
+        <a href="subjects.html">Subjects</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="staff-tour.html">Staff Tour</a>
+        <a href="calendar.html">Calendar</a>
+        <a href="admissions.html">Admissions</a>
+        <a href="index.html#contact">Contact</a>
+      </div>
+      <p class="copyright">© 2026 Waterkloof Hills Secondary School. All rights reserved. Designed and developed by TIMBI OMNI GROUP HOLDING TECHNOLOGIES | 0762234837 | ttimbi51@gmail.com</p>
+    </div>
+  </footer>
+
+  <script src="js/chatbot.js"></script>
+  <script src="js/content-loader.js"></script>
+</body>
+</html>

@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Billboard Media Manager</title>
+  <style>
+    :root { color-scheme: light; }
+    body { font-family: Poppins, Arial, sans-serif; margin: 0; background: linear-gradient(135deg, #eef5ff, #f8fbff); color: #123; }
+    .wrap { max-width: 900px; margin: 32px auto; padding: 24px; background: white; border-radius: 24px; box-shadow: 0 24px 60px rgba(0,0,0,0.08); }
+    h1 { margin: 0 0 8px; color: #003d82; }
+    p { color: #475569; line-height: 1.7; }
+    .card { background: #f8fbff; border: 1px solid #e3edf8; border-radius: 16px; padding: 16px; margin-top: 16px; }
+    label { display: block; font-weight: 700; margin-top: 12px; color: #234; }
+    input, textarea { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #d7e3ef; margin-top: 6px; font-size: 14px; }
+    button { margin-top: 12px; padding: 12px 16px; border: none; border-radius: 999px; background: linear-gradient(135deg, #f7941d, #ffb64c); color: white; font-weight: 700; cursor: pointer; }
+    .danger-btn { background: #dc2626; }
+    .danger-btn:hover { background: #b91c1c; }
+    .image-list { display: grid; gap: 10px; margin-top: 10px; }
+    .image-list-item { display: flex; justify-content: space-between; align-items: center; gap: 12px; background: white; padding: 10px 12px; border-radius: 10px; border: 1px solid #dce9f8; cursor: pointer; }
+    .image-list-item.active { border-color: #f7941d; box-shadow: 0 0 0 2px rgba(247,148,29,0.2); }
+    .image-list-item .preview { width: 88px; height: 66px; object-fit: cover; border-radius: 8px; border: 1px solid #dce9f8; background: #f8fbff; }
+    .image-list-item .meta { flex: 1; }
+    .image-list-item .open-btn { margin: 0; padding: 8px 12px; font-size: 0.9rem; }
+    .preview-panel { margin-top: 12px; padding: 12px; border: 1px solid #dce9f8; border-radius: 14px; background: linear-gradient(135deg, #f8fbff, #eef5ff); }
+    .preview-panel img { width: 100%; max-height: 320px; object-fit: contain; border-radius: 12px; background: white; border: 1px solid #dce9f8; }
+    .preview-title { font-weight: 700; color: #003d82; margin-top: 8px; }
+    .badge { display: inline-block; margin-top: 8px; padding: 6px 10px; border-radius: 999px; font-size: 0.8rem; font-weight: 700; background: #ecfdf5; color: #166534; }
+    .small { font-size: 0.9rem; color: #64748b; }
+    .status { margin-top: 12px; padding: 10px 12px; border-radius: 10px; display: none; }
+    .status.success { display: block; background: #ecfdf5; color: #166534; }
+    .status.error { display: block; background: #fef2f2; color: #991b1b; }
+    .hidden { display: none; }
+    .auth-card { max-width: 520px; margin: 40px auto; padding: 24px; border-radius: 20px; background: white; box-shadow: 0 20px 50px rgba(0,0,0,0.08); }
+    .auth-card h2 { color: #003d82; margin-top: 0; }
+    .auth-form { display: grid; gap: 10px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div id="loginView" class="auth-card">
+      <h2>Billboard Media Login</h2>
+      <p>Sign in to upload new billboard images or remove current images from the rotation.</p>
+      <form id="loginForm" class="auth-form">
+        <label>Admin username</label>
+        <input id="loginUsername" autocomplete="username" />
+        <label>Admin password</label>
+        <input id="loginPassword" type="password" autocomplete="current-password" />
+        <button type="submit">Sign in</button>
+        <div id="loginStatus" class="status"></div>
+      </form>
+    </div>
+
+    <div id="managerView" class="hidden">
+      <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;">
+        <div>
+          <h1>Billboard Media Manager</h1>
+          <p>Upload new images to add them to the rotating billboard. Remove any image that should no longer appear.</p>
+        </div>
+        <button type="button" onclick="logout()" class="danger-btn">Log out</button>
+      </div>
+
+      <div class="card">
+        <label>Upload new billboard image</label>
+        <input id="imageInput" type="file" accept="image/*" />
+        <button onclick="uploadImage()">Upload and add to rotation</button>
+        <div class="small">The new image will start rotating on the digital billboard after upload.</div>
+      </div>
+
+      <div class="card">
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;">
+          <strong>Current billboard images</strong>
+          <button type="button" onclick="loadBillboardImageList()">Refresh list</button>
+        </div>
+        <div id="previewPanel" class="preview-panel hidden">
+          <img id="previewImage" src="" alt="Selected billboard image" />
+          <div id="previewTitle" class="preview-title"></div>
+          <div id="currentBadge" class="badge">Currently rotating</div>
+        </div>
+        <div id="billboardImageList" class="image-list"></div>
+      </div>
+
+      <div id="status" class="status"></div>
+    </div>
+  </div>
+
+  <script>
+    const SESSION_STORAGE_KEY = 'whss-admin-session';
+    const SESSION_TTL_MS = 60 * 60 * 1000;
+    const INACTIVITY_TIMEOUT_MS = 60 * 60 * 1000;
+    let activeCredentials = { username: '', password: '' };
+    let selectedImage = null;
+    let currentBoardImage = '';
+    let inactivityTimer = null;
+
+    function clearInactivityTimer() {
+      if (inactivityTimer) {
+        clearTimeout(inactivityTimer);
+        inactivityTimer = null;
+      }
+    }
+
+    function resetInactivityTimer() {
+      if (!activeCredentials.username || !activeCredentials.password) return;
+      clearInactivityTimer();
+      inactivityTimer = setTimeout(() => {
+        logout();
+        const status = document.getElementById('loginStatus');
+        if (status) {
+          status.className = 'status error';
+          status.textContent = 'Session expired after inactivity. Please sign in again.';
+        }
+      }, INACTIVITY_TIMEOUT_MS);
+    }
+
+    function saveSession() {
+      if (activeCredentials.username && activeCredentials.password) {
+        localStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify({
+          username: activeCredentials.username,
+          password: activeCredentials.password,
+          savedAt: Date.now()
+        }));
+      } else {
+        localStorage.removeItem(SESSION_STORAGE_KEY);
+      }
+    }
+
+    function clearSession() {
+      clearInactivityTimer();
+      localStorage.removeItem(SESSION_STORAGE_KEY);
+    }
+
+    window.addEventListener('message', (event) => {
+      if (event.data && event.data.type === 'billboard-current-image') {
+        currentBoardImage = event.data.image || '';
+        const currentBadge = document.getElementById('currentBadge');
+        if (currentBadge && selectedImage) {
+          currentBadge.textContent = currentBoardImage === selectedImage ? 'Currently rotating' : 'Selected for preview';
+        }
+      }
+    });
+
+    async function handleLogin(event) {
+      event.preventDefault();
+      const username = document.getElementById('loginUsername').value.trim();
+      const password = document.getElementById('loginPassword').value;
+      const status = document.getElementById('loginStatus');
+      status.className = 'status';
+      status.textContent = 'Signing in...';
+
+      try {
+        const res = await fetch('/api/admin/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password })
+        });
+        const result = await res.json();
+
+        if (res.ok && result.success) {
+          activeCredentials = { username, password };
+          saveSession();
+          resetInactivityTimer();
+          status.className = 'status success';
+          status.textContent = 'Signed in successfully.';
+          document.getElementById('loginView').classList.add('hidden');
+          document.getElementById('managerView').classList.remove('hidden');
+          await loadBillboardImageList();
+        } else {
+          status.className = 'status error';
+          status.textContent = 'Incorrect username or password.';
+        }
+      } catch (error) {
+        status.className = 'status error';
+        status.textContent = 'Unable to sign in right now.';
+      }
+    }
+
+    function logout() {
+      activeCredentials = { username: '', password: '' };
+      clearSession();
+      document.getElementById('loginView').classList.remove('hidden');
+      document.getElementById('managerView').classList.add('hidden');
+      document.getElementById('loginUsername').value = '';
+      document.getElementById('loginPassword').value = '';
+      const status = document.getElementById('loginStatus');
+      if (status) {
+        status.className = 'status';
+        status.textContent = '';
+      }
+    }
+
+    async function restoreSession() {
+      try {
+        const saved = JSON.parse(localStorage.getItem(SESSION_STORAGE_KEY) || 'null');
+        if (!saved?.username || !saved?.password || Date.now() - (saved.savedAt || 0) > SESSION_TTL_MS) {
+          clearSession();
+          return false;
+        }
+
+        activeCredentials = { username: saved.username, password: saved.password };
+        const status = document.getElementById('loginStatus');
+        if (status) {
+          status.className = 'status';
+          status.textContent = 'Restoring your session...';
+        }
+
+        const res = await fetch('/api/admin/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username: activeCredentials.username, password: activeCredentials.password })
+        });
+        const result = await res.json();
+
+        if (res.ok && result.success) {
+          saveSession();
+          resetInactivityTimer();
+          document.getElementById('loginView').classList.add('hidden');
+          document.getElementById('managerView').classList.remove('hidden');
+          await loadBillboardImageList();
+          return true;
+        }
+
+        clearSession();
+        return false;
+      } catch (error) {
+        clearSession();
+        return false;
+      }
+    }
+
+    async function loadBillboardImageList() {
+      const container = document.getElementById('billboardImageList');
+      container.innerHTML = '<div class="small">Loading images...</div>';
+
+      try {
+        const res = await fetch('/api/billboard-images');
+        const images = await res.json();
+        if (!Array.isArray(images) || images.length === 0) {
+          container.innerHTML = '<div class="small">No billboard images yet. Upload one to start the rotation.</div>';
+          return;
+        }
+
+        container.innerHTML = images.map((imageUrl) => {
+          const fileName = imageUrl.split('/').pop();
+          const displayName = fileName.replace(/\.[^.]+$/, '').replace(/[-_]+/g, ' ');
+          const isActive = selectedImage === imageUrl || currentBoardImage === imageUrl;
+          const safeFileName = JSON.stringify(fileName);
+          const safeImageUrl = JSON.stringify(imageUrl);
+          return `
+            <div class="image-list-item ${isActive ? 'active' : ''}" onclick="selectImage(${safeImageUrl}, ${safeFileName})">
+              <img class="preview" src="${imageUrl}" alt="${fileName}" />
+              <div class="meta">
+                <strong>${displayName}</strong>
+                <small>${fileName}</small>
+              </div>
+              <div style="display:flex; gap:8px; flex-wrap:wrap;" onclick="event.stopPropagation()">
+                <button class="open-btn" type="button" onclick="window.open(${safeImageUrl}, '_blank')">Open image</button>
+                <button class="danger-btn" type="button" onclick="deleteBillboardImage(${safeFileName})">Remove</button>
+              </div>
+            </div>
+          `;
+        }).join('');
+      } catch (error) {
+        container.innerHTML = '<div class="small">Unable to load the current billboard images.</div>';
+      }
+    }
+
+    function selectImage(imageUrl, fileName) {
+      selectedImage = imageUrl;
+      const panel = document.getElementById('previewPanel');
+      const previewImage = document.getElementById('previewImage');
+      const previewTitle = document.getElementById('previewTitle');
+      const currentBadge = document.getElementById('currentBadge');
+      if (!panel || !previewImage || !previewTitle || !currentBadge) return;
+      panel.classList.remove('hidden');
+      previewImage.src = imageUrl;
+      previewImage.alt = fileName;
+      previewTitle.textContent = fileName;
+      currentBadge.textContent = currentBoardImage === imageUrl ? 'Currently rotating' : 'Selected for preview';
+      loadBillboardImageList();
+    }
+
+    async function uploadImage() {
+      const fileInput = document.getElementById('imageInput');
+      const file = fileInput.files[0];
+      if (!file) {
+        alert('Please choose an image first.');
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append('image', file);
+      formData.append('username', activeCredentials.username);
+      formData.append('password', activeCredentials.password);
+
+      const status = document.getElementById('status');
+      const res = await fetch('/api/admin/upload-image', { method: 'POST', body: formData });
+      const result = await res.json();
+
+      if (res.ok && result.success) {
+        status.className = 'status success';
+        status.textContent = 'Image uploaded successfully. It will now rotate on the billboard.';
+        fileInput.value = '';
+        await loadBillboardImageList();
+        if (window.opener) {
+          try { window.opener.location.reload(); } catch (error) {}
+        }
+      } else {
+        status.className = 'status error';
+        status.textContent = 'Upload failed. Check your admin credentials.';
+      }
+    }
+
+    async function deleteBillboardImage(fileName) {
+      if (!fileName) return;
+      const confirmed = confirm(`Remove ${fileName} from the billboard rotation?`);
+      if (!confirmed) return;
+
+      const status = document.getElementById('status');
+      try {
+        const res = await fetch('/api/admin/billboard-image', {
+          method: 'DELETE',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username: activeCredentials.username, password: activeCredentials.password, filename: fileName })
+        });
+        const result = await res.json();
+
+        if (res.ok && result.success) {
+          status.className = 'status success';
+          status.textContent = 'Image removed from the billboard rotation.';
+          selectedImage = null;
+          const previewPanel = document.getElementById('previewPanel');
+          const previewImage = document.getElementById('previewImage');
+          const previewTitle = document.getElementById('previewTitle');
+          if (previewPanel) previewPanel.classList.add('hidden');
+          if (previewImage) previewImage.src = '';
+          if (previewTitle) previewTitle.textContent = '';
+          await loadBillboardImageList();
+          if (window.opener) {
+            try { window.opener.location.reload(); } catch (error) {}
+          }
+        } else {
+          status.className = 'status error';
+          status.textContent = 'Unable to remove the image.';
+        }
+      } catch (error) {
+        status.className = 'status error';
+        status.textContent = 'The removal request failed.';
+      }
+    }
+
+    async function refreshCurrentBoardImage() {
+      try {
+        const res = await fetch('/api/billboard-images');
+        const images = await res.json();
+        if (Array.isArray(images) && images.length > 0) {
+          currentBoardImage = images[0] || '';
+          const currentBadge = document.getElementById('currentBadge');
+          if (currentBadge && selectedImage) {
+            currentBadge.textContent = currentBoardImage === selectedImage ? 'Currently rotating' : 'Selected for preview';
+          }
+        }
+      } catch (error) {}
+    }
+
+    ['mousemove', 'keydown', 'click', 'scroll', 'touchstart'].forEach((eventName) => {
+      document.addEventListener(eventName, () => resetInactivityTimer(), true);
+    });
+
+    document.getElementById('loginForm').addEventListener('submit', handleLogin);
+    setInterval(refreshCurrentBoardImage, 4000);
+  </script>
+</body>
+</html>

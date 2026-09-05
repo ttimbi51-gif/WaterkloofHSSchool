@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Application Confirmation</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Waterkloof Hills Secondary School Application Confirmation</h1>
+    <div id="content">Loading confirmation...</div>
+  </div>
+
+  <script>
+    function qs(name) { const params = new URLSearchParams(location.search); return params.get(name); }
+    const appId = qs('appId');
+    const content = document.getElementById('content');
+
+    if (!appId) {
+      content.textContent = 'Missing application id.';
+    } else {
+      fetch(`/applications/${encodeURIComponent(appId)}/application.json`).then(r => r.json()).then(data => {
+        const ref = data.reference || 'N/A';
+        const pdfName = data.reference ? `${data.reference}-confirmation.pdf` : null;
+        const pdfUrl = pdfName ? `/applications/${encodeURIComponent(appId)}/${encodeURIComponent(pdfName)}` : '#';
+        content.innerHTML = `<p>Thank you — your application has been submitted.</p>
+          <p><strong>Reference:</strong> ${ref}</p>
+          <p><a href="${pdfUrl}" target="_blank">Download PDF Confirmation</a></p>
+          <p>We have also sent an email to the Waterkloof Hills admissions office. Please keep the reference for future queries.</p>`;
+      }).catch((err) => {
+        console.error(err);
+        content.textContent = 'Unable to load application confirmation.';
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Upload Payment Proof</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Upload EFT Payment Proof for Waterkloof Hills Secondary School</h1>
+    <p id="appInfo">Loading your Waterkloof Hills application details...</p>
+    <form id="uploadForm" enctype="multipart/form-data">
+      <input type="file" name="proof" accept=".jpg,.jpeg,.png,.pdf" required>
+      <input type="hidden" name="appId" id="appIdField">
+      <button type="submit" class="btn-submit">Upload Proof and Confirm</button>
+    </form>
+    <div id="status" style="margin-top:20px;color:green"></div>
+  </div>
+
+  <script>
+    function qs(name) { const params = new URLSearchParams(location.search); return params.get(name); }
+    const appId = qs('appId');
+    const appInfo = document.getElementById('appInfo');
+    const status = document.getElementById('status');
+    const appIdField = document.getElementById('appIdField');
+
+    if (!appId) {
+      appInfo.textContent = 'Missing application id.';
+      document.getElementById('uploadForm').style.display = 'none';
+    } else {
+      appIdField.value = appId;
+      fetch(`/applications/${encodeURIComponent(appId)}/application.json`).then(r => r.json()).then(data => {
+        appInfo.innerHTML = `Application <strong>${appId}</strong> for <strong>${data.fields.learner_name || 'Learner'}</strong>. Upload your bank proof below.`;
+      }).catch(() => {
+        appInfo.textContent = `Application ${appId}`;
+      });
+    }
+
+    document.getElementById('uploadForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const f = new FormData(document.getElementById('uploadForm'));
+      try {
+        const res = await fetch('/api/confirm-payment-upload', { method: 'POST', body: f });
+        const json = await res.json();
+        if (json && json.success) {
+          status.textContent = 'Proof uploaded and payment confirmed. Redirecting...';
+          setTimeout(() => window.location.href = json.confirmationUrl, 800);
+        } else {
+          status.textContent = 'Upload failed.';
+        }
+      } catch (err) {
+        console.error(err);
+        status.textContent = 'Network error.';
+      }
+    });
+  </script>
+</body>
+</html>
