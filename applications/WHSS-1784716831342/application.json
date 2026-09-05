@@ -1,0 +1,23 @@
+{
+  "id": "WHSS-1784716831342",
+  "status": "pending_payment",
+  "createdAt": "2026-07-22T10:40:31.343Z",
+  "fields": {
+    "learner_name": "Tshireletso",
+    "dob": "2000-12-13",
+    "grade": "8",
+    "previous_school": "km",
+    "parent_name": "r",
+    "guardian_relation": "fr",
+    "parent_phone": "rf",
+    "alternate_phone": "5965695496",
+    "parent_email": "edf@gmail.com",
+    "address": "ded",
+    "residence_type": "fer",
+    "additional": ""
+  },
+  "files": [
+    "applications/WHSS-1784716831342/10668235_Exam_Timetable.pdf"
+  ],
+  "reference": "WHSS2026831343"
+}
