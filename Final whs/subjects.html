@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Subjects – Waterkloof Hills Secondary School</title>
+  <meta name="description" content="View the subjects and academic pathways offered at Waterkloof Hills Secondary School.">
+  <meta name="theme-color" content="#1f2f5f">
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    .subjects-page { padding: 80px 0; }
+    .subjects-page h2 { font-size: 36px; color: #0c2d5a; margin-bottom: 10px; }
+    .subjects-page .subtitle { color: #777; margin-bottom: 50px; font-size: 16px; }
+
+    .subject-tabs {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+    .tab-btn {
+      padding: 10px 26px;
+      border: 2px solid #0c2d5a;
+      background: white;
+      color: #0c2d5a;
+      border-radius: 25px;
+      cursor: pointer;
+      font-family: 'Poppins', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      transition: all 0.25s;
+    }
+    .tab-btn:hover, .tab-btn.active {
+      background: #0c2d5a;
+      color: white;
+    }
+
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    /* Compulsory banner */
+    .compulsory-banner {
+      background: #0c2d5a;
+      color: white;
+      border-radius: 12px;
+      padding: 30px 35px;
+      margin-bottom: 40px;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 20px;
+      align-items: center;
+    }
+    .compulsory-banner .banner-icon { font-size: 50px; }
+    .compulsory-banner h3 { font-size: 20px; margin-bottom: 8px; }
+    .compulsory-banner ul { list-style: none; display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+    .compulsory-banner ul li {
+      background: rgba(247,148,29,0.25);
+      border: 1px solid #f7941d;
+      color: white;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+    }
+
+    /* Subject grid */
+    .subjects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .subject-card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 16px rgba(0,0,0,.07);
+      padding: 28px;
+      border-top: 4px solid #0c2d5a;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .subject-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,.12);
+    }
+    .subject-card .s-icon { font-size: 36px; margin-bottom: 14px; }
+    .subject-card h3 { color: #0c2d5a; font-size: 17px; margin-bottom: 8px; }
+    .subject-card p { color: #666; font-size: 14px; line-height: 1.65; }
+    .subject-card .s-tag {
+      display: inline-block;
+      margin-top: 12px;
+      background: #f0f4f8;
+      color: #0c2d5a;
+      font-size: 12px;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-weight: 600;
+    }
+
+    /* Grade 8-9 section */
+    .grade89-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    /* Requirements box */
+    .req-box {
+      background: #fff8f0;
+      border-left: 5px solid #f7941d;
+      border-radius: 0 10px 10px 0;
+      padding: 24px 28px;
+      margin-top: 40px;
+    }
+    .req-box h3 { color: #0c2d5a; margin-bottom: 12px; }
+    .req-box ul { list-style: none; }
+    .req-box ul li { padding: 8px 0; border-bottom: 1px solid #ffe4c4; color: #555; font-size: 15px; }
+    .req-box ul li::before { content: "→ "; color: #f7941d; font-weight: 700; }
+
+    @media (max-width: 768px) {
+      .subjects-grid, .grade89-grid { grid-template-columns: 1fr; }
+      .compulsory-banner { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <div class="container">
+      <div class="left">📍 2 Spain Drive, Waterkloof Ext 5, Rustenburg, 0299</div>
+      <div class="right">📞 076 809 0560 / 014 008 5317 &nbsp;&nbsp; ✉ admin@waterkloofhillsschool.co.za</div>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header>
+    <div class="container nav-container">
+      <div class="logo">
+        <img src="images/school-logo.jpg" alt="School Logo">
+        <div><h2>Waterkloof Hills</h2><p>Wisdom Is Power</p></div>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="index.html#about">About Us</a></li>
+          <li><a href="index.html#academics">Academics</a></li>
+          <li><a href="subjects.html" style="color:#f7941d;">Subjects</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="staff-tour.html">Staff Tour</a></li>
+          <li><a href="calendar.html">Calendar</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <a href="admissions.html" class="apply-btn">Apply Now</a>
+      <a class="admin-login-icon" href="admin.html" title="Admin login" aria-label="Admin login">&#128100;</a>
+    </div>
+  </header>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="container">
+      <h1>Subject <span class="orange">Choices</span></h1>
+      <p>Explore the full range of subjects offered at Waterkloof Hills Secondary School.</p>
+    </div>
+  </section>
+
+  <!-- SUBJECTS -->
+  <section class="subjects-page">
+    <div class="container">
+      <h2>Our Curriculum</h2>
+      <p class="subtitle" data-content="academicsIntro" data-fallback="We follow the National Curriculum Statement (NCS / CAPS) as prescribed by the Department of Basic Education.">We follow the National Curriculum Statement (NCS / CAPS) as prescribed by the Department of Basic Education.</p>
+
+      <!-- Tabs -->
+      <div class="subject-tabs">
+        <button class="tab-btn active" onclick="showTab('gr89', this)">Grade 8 &amp; 9</button>
+        <button class="tab-btn" onclick="showTab('gr1012', this)">Grade 10 – 12</button>
+      </div>
+
+      <!-- Grade 8 & 9 Tab -->
+      <div class="tab-content active" id="tab-gr89">
+
+        <div class="compulsory-banner">
+          <div class="banner-icon">📚</div>
+          <div>
+            <h3>All Grade 8 &amp; 9 Learners Study These Subjects</h3>
+            <p style="opacity:.85;font-size:14px;">The GET phase covers a broad curriculum to build a strong foundation.</p>
+            <ul>
+              <li>English Home Language</li>
+              <li>isiZulu / Setswana FAL</li>
+              <li>Mathematics</li>
+              <li>Natural Sciences</li>
+              <li>Social Sciences</li>
+              <li>Technology</li>
+              <li>Economic &amp; Management Sciences</li>
+              <li>Life Orientation</li>
+              <li>Creative Arts</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="grade89-grid">
+          <div class="subject-card">
+            <div class="s-icon">🔢</div>
+            <h3>Mathematics</h3>
+            <p>Building strong numerical, algebraic and geometric reasoning for future STEM pathways.</p>
+            <span class="s-tag">Core Subject</span>
+          </div>
+          <div class="subject-card">
+            <div class="s-icon">🔬</div>
+            <h3>Natural Sciences</h3>
+            <p>Exploring biology, chemistry and physics concepts through hands-on experiments.</p>
+            <span class="s-tag">Core Subject</span>
+          </div>
+          <div class="subject-card">
+            <div class="s-icon">🌍</div>
+            <h3>Social Sciences</h3>
+            <p>Geography and History combined — understanding the world and South Africa's past.</p>
+            <span class="s-tag">Core Subject</span>
+          </div>
+          <div class="subject-card">
+            <div class="s-icon">💡</div>
+            <h3>Technology</h3>
+            <p>Design, build and evaluate solutions to practical problems in everyday contexts.</p>
+            <span class="s-tag">Core Subject</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Grade 10–12 Tab -->
+      <div class="tab-content" id="tab-gr1012">
+
+        <div class="compulsory-banner">
+          <div class="banner-icon">🎓</div>
+          <div>
+            <h3>Compulsory Subjects for ALL Grade 10–12 Learners</h3>
+            <p style="opacity:.85;font-size:14px;">Every learner must take these subjects regardless of their elective choices.</p>
+            <ul>
+              <li>English Home Language</li>
+              <li>Mathematics or Mathematical Literacy</li>
+              <li>Life Orientation</li>
+              <li>+ 3 Electives from the list below</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3 style="color:#0c2d5a;font-size:22px;margin-bottom:24px;">Elective Subjects</h3>
+
+        <div class="subjects-grid">
+          <div class="subject-card">
+            <div class="s-icon">⚗️</div>
+            <h3>Physical Sciences</h3>
+            <p>Physics and Chemistry — ideal for learners aiming for engineering, medicine or science degrees.</p>
+            <span class="s-tag">Science Stream</span>
+          </div>
+          <div class="subject-card">
+            <div class="s-icon">🌿</div>
+            <h3>Life Sciences</h3>
+            <p>Biology, human anatomy, ecology and genetics. Gateway to health and environmental careers.</p>
+            <span class="s-tag">Science Stream</span>
+          </div>
+          <div class="subject-card">
+            <div class="s-icon">🌍</div>
+            <h3>Geography</h3>
+            <p>Physical and human geography — maps, climate, development and environmental studies.</p>
+            <span class="s-tag">Humanities</span>
+          </div>
+          <div class="subject-card">
+            <div class="s-icon">📜</div>
+            <h3>History</h3>
+            <p>South African and World History — critical thinking, source analysis and essay writing.</p>
+            <span class="s-tag">Humanities</span>
+          </div>
+          <div class="subject-card">
+            <div class="s-icon">📊</div>
+            <h3>Accounting</h3>
+            <p>Financial statements, bookkeeping, VAT and business accounting. Foundation for CA/BCom.</p>
+            <span class="s-tag">Commerce</span>
+          </div>
+          <div class="subject-card">
+            <div class="s-icon">🏢</div>
+            <h3>Business Studies</h3>
+            <p>Entrepreneurship, management, marketing and business environments in South Africa.</p>
+            <span class="s-tag">Commerce</span>
+          </div>
+          <div class="subject-card">
+            <div class="s-icon">📈</div>
+            <h3>Economics</h3>
+            <p>Micro and macro economics, trade, monetary policy and economic growth concepts.</p>
+            <span class="s-tag">Commerce</span>
+          </div>
+          <div class="subject-card">
+            <div class="s-icon">✈️</div>
+            <h3>Tourism</h3>
+            <p>South Africa's tourism industry, responsible tourism, hospitality and travel management.</p>
+            <span class="s-tag">Services</span>
+          </div>
+          <div class="subject-card">
+            <div class="s-icon">🍳</div>
+            <h3>Consumer Studies</h3>
+            <p>Food preparation, nutrition, clothing and housing — practical life skills and theory.</p>
+            <span class="s-tag">Applied</span>
+          </div>
+          <div class="subject-card">
+            <div class="s-icon">🌾</div>
+            <h3>Agricultural Sciences</h3>
+            <p>Crop production, animal husbandry, soil science and sustainable farming practices.</p>
+            <span class="s-tag">Applied</span>
+          </div>
+        </div>
+
+        <div class="req-box">
+          <h3>Subject Selection Requirements</h3>
+          <ul>
+            <li>Learners must choose a minimum of 7 subjects (3 compulsory + 4 electives)</li>
+            <li>At least one language must be at Home Language level</li>
+            <li>Subject changes may only be made within the first two weeks of Term 1</li>
+            <li>Certain university programmes require specific subjects — consult your teacher for guidance</li>
+            <li>For advice contact: 📞 076 809 0560 / 014 008 5317</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <h3>Waterkloof Hills Secondary School</h3>
+      <p>Wisdom Is Power</p>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="subjects.html">Subjects</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="calendar.html">Calendar</a>
+        <a href="admissions.html">Admissions</a>
+        <a href="index.html#contact">Contact</a>
+      </div>
+      <p class="copyright">© 2026 Waterkloof Hills Secondary School. All rights reserved. Designed and developed by TIMBI OMNI GROUP HOLDING TECHNOLOGIES | 0762234837 | ttimbi51@gmail.com</p>
+    </div>
+  </footer>
+
+  <script src="js/chatbot.js"></script>
+  <script>
+    function showTab(id, btn) {
+      document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('tab-' + id).classList.add('active');
+      btn.classList.add('active');
+    }
+  </script>
+</body>
+</html>

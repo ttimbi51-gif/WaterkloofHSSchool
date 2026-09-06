@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Waterkloof Hills Secondary School | Digital Information Board</title>
+  <link rel="stylesheet" href="css/digital-board.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="page-shell">
+    <header class="topbar">
+      <div class="brand">
+        <img src="../images/school-logo.jpg" alt="School logo">
+        <div>
+          <h1>Waterkloof Hills Secondary School</h1>
+          <p>Wisdom Is Power</p>
+        </div>
+      </div>
+
+      <div class="clock-card">
+        <div id="time">00:00:00</div>
+        <div id="date">Loading date...</div>
+      </div>
+    </header>
+
+    <div class="ticker">
+      <div class="ticker-track">
+        <span>Admissions Open 2027 • Parents Meeting Friday • Grade 12 Winter Classes • Sports Tournament Next Week • Welcome to Waterkloof Hills Secondary School</span>
+        <span aria-hidden="true">Admissions Open 2027 • Parents Meeting Friday • Grade 12 Winter Classes • Sports Tournament Next Week • Welcome to Waterkloof Hills Secondary School</span>
+      </div>
+    </div>
+
+    <main class="dashboard">
+      <section class="left-panel">
+        <article class="card hero-card">
+          <p class="eyebrow">Today's Announcement</p>
+          <h2>WELCOME BACK!</h2>
+          <p>Term 3 officially begins on <strong>21 July 2026</strong>. Please report before <strong>07:00</strong>.</p>
+        </article>
+
+        <article class="card countdown-card">
+          <p class="eyebrow">Matric Final Exams</p>
+          <div id="countdown" class="countdown">Loading...</div>
+        </article>
+
+        <article class="card weather-card">
+          <p class="eyebrow">Weather</p>
+          <h3 id="weather-temp">28°C</h3>
+          <p id="weather-text">Sunny</p>
+          <small>Clear skies with a bright afternoon.</small>
+        </article>
+      </section>
+
+      <section class="center-panel">
+        <div class="hero-slide">
+          <img id="slide-image" src="../images/schoolpictures (1)/IMG_9030.jpeg" alt="School activity">
+          <div class="overlay">
+            <p class="eyebrow">School Spotlight</p>
+            <h2 id="slide-title">Welcome to Waterkloof Hills Secondary School</h2>
+            <p id="slide-text">Developing future leaders with purpose and pride.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="right-panel">
+        <article class="card">
+          <p class="eyebrow">Upcoming Events</p>
+          <ul>
+            <li>📅 Parents Meeting</li>
+            <li>⚽ Soccer Tournament</li>
+            <li>🏃 Athletics</li>
+            <li>🎓 Career Expo</li>
+            <li>📚 Saturday Classes</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <p class="eyebrow">Latest News</p>
+          <ul>
+            <li>New Computer Lab Completed</li>
+            <li>Admissions Open</li>
+            <li>Matric Camp Registration</li>
+            <li>Winter School Programme</li>
+            <li>Top Learners Awarded</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <p class="eyebrow">School Statistics</p>
+          <div class="stats-list">
+            <div><strong>1200</strong><span>Learners</span></div>
+            <div><strong>45</strong><span>Educators</span></div>
+            <div><strong>32</strong><span>Smart Classrooms</span></div>
+            <div><strong>100%</strong><span>Commitment</span></div>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <footer>
+      <div>© 2026 Waterkloof Hills Secondary School</div>
+      <div>Designed by TIMBI OMNI GROUP HOLDING TECHNOLOGIES</div>
+    </footer>
+  </div>
+
+  <script src="js/digital-board.js"></script>
+</body>
+</html>

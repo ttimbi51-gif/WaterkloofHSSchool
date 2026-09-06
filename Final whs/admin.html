@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Portal</title>
+  <style>
+    :root { color-scheme: light; }
+    body { font-family: Poppins, Arial, sans-serif; margin: 0; background: linear-gradient(135deg, #eef5ff, #f8fbff); color: #123; }
+    .wrap { max-width: 1400px; margin: 24px auto; padding: 24px; background: white; border-radius: 24px; box-shadow: 0 24px 60px rgba(0,0,0,0.08); }
+    .topbar { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 18px; flex-wrap: wrap; }
+    h1 { margin: 0; color: #003d82; font-size: 1.9rem; }
+    p { color: #475569; line-height: 1.7; }
+    .app-shell { display: grid; grid-template-columns: 280px 1fr; gap: 18px; }
+    .sidebar { background: linear-gradient(180deg, #f4f9ff, #eef5ff); border: 1px solid #dce9f8; border-radius: 18px; padding: 16px; }
+    .nav-title { font-size: .8rem; font-weight: 800; color: #667085; text-transform: uppercase; letter-spacing: .14em; margin-bottom: 10px; }
+    .nav-btn { width: 100%; margin: 6px 0; padding: 10px 12px; border: none; border-radius: 12px; text-align: left; background: white; color: #0c2d5a; font-weight: 600; cursor: pointer; }
+    .nav-btn.active { background: linear-gradient(135deg, #f7941d, #ffb64c); color: white; }
+    .content-panel { display: grid; gap: 16px; }
+    .grid { display: grid; gap: 16px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .full { grid-column: 1 / -1; }
+    label { display: block; margin-top: 10px; font-weight: 700; color: #234; }
+    input, textarea, select { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #d7e3ef; margin-top: 6px; font-size: 14px; }
+    textarea { min-height: 110px; }
+    button { margin-top: 18px; padding: 12px 18px; border: none; border-radius: 999px; background: linear-gradient(135deg, #f7941d, #ffb64c); color: white; font-weight: 700; cursor: pointer; }
+    .status { margin-top: 16px; padding: 12px 14px; border-radius: 10px; display: none; }
+    .status.success { display: block; background: #ecfdf5; color: #166534; }
+    .status.error { display: block; background: #fef2f2; color: #991b1b; }
+    .card { background: #f8fbff; border: 1px solid #e3edf8; border-radius: 16px; padding: 16px; }
+    .small { font-size: 0.9rem; color: #64748b; }
+    .info-box { background: linear-gradient(135deg, #f8fbff, #eef5ff); border: 1px dashed #86b6f4; border-radius: 14px; padding: 14px; color: #234; }
+    .preview-card { background: linear-gradient(135deg, #0c2d5a, #125aa1); color: white; border-radius: 18px; padding: 16px; }
+    .preview-card h3 { margin-top: 0; }
+    .preview-card ul { padding-left: 18px; margin: 8px 0 0; }
+    .preview-card li { margin-bottom: 6px; }
+    .actions { display: flex; gap: 10px; flex-wrap: wrap; }
+    .chip-row { display: flex; gap: 8px; flex-wrap: wrap; margin: 8px 0 10px; }
+    .access-pill { display: inline-flex; align-items: center; gap: 7px; background: #eef5ff; color: #0c2d5a; padding: 8px 12px; border-radius: 999px; font-size: 0.88rem; font-weight: 700; }
+    .access-pill small { color: #475569; font-weight: 600; }
+    .media-card { border-left: 4px solid #f7941d; }
+    .note-list { padding-left: 18px; color: #475569; }
+    .note-list li { margin-bottom: 6px; }
+    .stack { display: grid; gap: 10px; }
+    .chip { display: inline-block; background: #e8f1ff; color: #0c2d5a; padding: 7px 10px; border-radius: 999px; font-size: 0.85rem; font-weight: 700; cursor: pointer; }
+    .mini-log { font-size: 0.9rem; color: #334155; margin-top: 8px; }
+    .mini-log strong { color: #0c2d5a; }
+    .actions button { margin-top: 0; }
+    .image-list { display: grid; gap: 10px; margin-top: 10px; }
+    .image-list-item { display: flex; justify-content: space-between; align-items: center; gap: 10px; background: white; padding: 10px 12px; border-radius: 10px; border: 1px solid #dce9f8; }
+    .image-list-item small { color: #64748b; display: block; margin-top: 4px; }
+    .danger-btn { background: #dc2626; }
+    .danger-btn:hover { background: #b91c1c; }
+    .auth-card {
+      max-width: 520px; margin: 48px auto; padding: 32px; border-radius: 24px; background: white; box-shadow: 0 24px 60px rgba(0,0,0,0.08);
+    }
+    .auth-card h2 { color: #003d82; margin-top: 0; margin-bottom: 8px; }
+    .auth-card p { margin-bottom: 18px; }
+    .auth-form { display: grid; gap: 10px; }
+    .auth-form button { margin-top: 6px; }
+    .dashboard-shell.hidden, .hidden { display: none; }
+    .signed-in-box { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+    @media (max-width: 980px) { .app-shell { grid-template-columns: 1fr; } .sidebar { order: 2; } }
+    @media (max-width: 760px) { .grid { grid-template-columns: 1fr; } }
+    :root { --crest-navy: #1f2f5f; --crest-deep: #14203f; --crest-orange: #f47b20; --crest-green: #43b649; }
+    body { background: linear-gradient(135deg, #f3f5fa, #ffffff); }
+    h1, .auth-card h2, .nav-btn, .access-pill, .chip { color: var(--crest-navy); }
+    .nav-btn.active, button { background: linear-gradient(135deg, var(--crest-orange), #ffad54); }
+    .media-card { border-left-color: var(--crest-green); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div id="loginScreen" class="auth-card">
+      <h2>Staff Admin Access</h2>
+      <p>Sign in with your admin credentials to open the website management dashboard.</p>
+      <form id="loginForm" class="auth-form">
+        <label>Admin username</label>
+        <input id="loginUsername" autocomplete="username" />
+        <label>Admin password</label>
+        <input id="loginPassword" type="password" autocomplete="current-password" />
+        <button type="submit">Sign In</button>
+        <div id="loginStatus" class="status"></div>
+      </form>
+    </div>
+
+    <div id="dashboardShell" class="dashboard-shell hidden">
+      <div class="topbar">
+        <div>
+          <h1>Website Admin Portal</h1>
+          <p>Manage the school website, notices, calendar and digital billboard from one polished dashboard.</p>
+        </div>
+        <div class="actions">
+          <button type="button" onclick="window.open('/index.html','_blank')">Open Website</button>
+          <button type="button" onclick="window.open('/digital-board.html','_blank')">Open Digital Board</button>
+        </div>
+      </div>
+
+      <div class="info-box full">
+        <strong>Staff use note:</strong> Use the navigation on the left to switch between sections such as Home, About, Academics, Admissions, Staff, Gallery, Calendar and the Digital Board. For billboard pictures, open the <strong>Billboard Media</strong> section on the left. For staff-tour images and slide decks, use the dedicated management cards in the dashboard.
+      </div>
+
+      <div class="app-shell">
+        <aside class="sidebar">
+          <div class="nav-title">Content areas</div>
+          <button class="nav-btn active" type="button" onclick="showSection('home')">Home / Website</button>
+          <button class="nav-btn" type="button" onclick="showSection('about')">About / School Info</button>
+          <button class="nav-btn" type="button" onclick="showSection('academics')">Academics</button>
+          <button class="nav-btn" type="button" onclick="showSection('admissions')">Admissions</button>
+          <button class="nav-btn" type="button" onclick="showSection('staff')">Staff</button>
+          <button class="nav-btn" type="button" onclick="showSection('gallery')">Gallery / Calendar</button>
+          <button class="nav-btn" type="button" onclick="showSection('billboard')">Digital Billboard</button>
+          <button class="nav-btn" type="button" onclick="showSection('media')">Billboard Media</button>
+          <button class="nav-btn" type="button" onclick="showSection('slides')">Slides / Presentations</button>
+          <button class="nav-btn" type="button" onclick="showSection('staffTour')">Staff Tour Editor</button>
+        </aside>
+
+        <div class="content-panel">
+          <div class="card full signed-in-box">
+            <div class="stack">
+              <div class="small">Signed in as <strong id="activeUser">admin</strong></div>
+              <div class="access-pill" id="accessBadge">Full access</div>
+            </div>
+            <div class="actions">
+              <button type="button" onclick="logout()">Log Out</button>
+            </div>
+          </div>
+
+          <div class="card full">
+            <div id="homeSection" class="grid">
+            <div class="card">
+              <label>Ticker text</label>
+              <textarea id="ticker"></textarea>
+            </div>
+            <div class="card">
+              <label>Principal message</label>
+              <textarea id="principalMessage"></textarea>
+            </div>
+            <div class="card">
+              <label>Announcement</label>
+              <textarea id="announcement"></textarea>
+            </div>
+            <div class="card">
+              <label>School notices / news</label>
+              <textarea id="newsItems"></textarea>
+              <div class="small">Enter one item per line.</div>
+            </div>
+            <div class="card full">
+              <label>Calendar items (one per line as date | title)</label>
+              <textarea id="calendarItems"></textarea>
+            </div>
+          </div>
+
+          <div id="aboutSection" class="grid hidden">
+            <div class="card">
+              <label>About heading</label>
+              <textarea id="aboutHeading"></textarea>
+            </div>
+            <div class="card">
+              <label>About summary</label>
+              <textarea id="aboutSummary"></textarea>
+            </div>
+            <div class="card">
+              <label>Mission statement</label>
+              <textarea id="mission"></textarea>
+            </div>
+            <div class="card">
+              <label>Values / ethos</label>
+              <textarea id="values"></textarea>
+            </div>
+          </div>
+
+          <div id="academicsSection" class="grid hidden">
+            <div class="card">
+              <label>Academics intro</label>
+              <textarea id="academicsIntro"></textarea>
+            </div>
+            <div class="card">
+              <label>Subject highlights</label>
+              <textarea id="subjectHighlights"></textarea>
+              <div class="small">Enter one item per line.</div>
+            </div>
+          </div>
+
+          <div id="admissionsSection" class="grid hidden">
+            <div class="card">
+              <label>Admissions intro</label>
+              <textarea id="admissionsIntro"></textarea>
+            </div>
+            <div class="card">
+              <label>Important dates</label>
+              <textarea id="importantDates"></textarea>
+              <div class="small">Enter one item per line.</div>
+            </div>
+            <div class="card full">
+              <label>Contact details</label>
+              <textarea id="contactInfo"></textarea>
+            </div>
+          </div>
+
+          <div id="staffSection" class="grid hidden">
+            <div class="card">
+              <label>Staff page intro</label>
+              <textarea id="staffIntro"></textarea>
+            </div>
+            <div class="card">
+              <label>Staff notice</label>
+              <textarea id="staffNotice"></textarea>
+            </div>
+          </div>
+
+          <div id="gallerySection" class="grid hidden">
+            <div class="card">
+              <label>Gallery intro</label>
+              <textarea id="galleryIntro"></textarea>
+            </div>
+            <div class="card">
+              <label>Gallery highlights</label>
+              <textarea id="galleryHighlights"></textarea>
+              <div class="small">Enter one item per line.</div>
+            </div>
+          </div>
+
+          <div id="billboardSection" class="grid hidden">
+            <div class="card">
+              <label>Daily digital board ticker</label>
+              <textarea id="billboardTicker"></textarea>
+            </div>
+            <div class="card">
+              <label>Digital board welcome message</label>
+              <textarea id="billboardMessage"></textarea>
+            </div>
+            <div class="card full">
+              <label>Daily slide notes (one per line)</label>
+              <textarea id="billboardSlides"></textarea>
+              <div class="small">Use this for the daily slide content that should appear on the digital board.</div>
+            </div>
+          </div>
+
+          <div id="mediaSection" class="grid hidden">
+            <div class="card full media-card">
+              <h3 style="margin-top:0; color:#003d82;">Upload or remove billboard media</h3>
+              <p class="small" style="margin-top:0;">Every picture shown here is visible in the list below, including file names and upload dates, so you can confidently remove or replace the correct item.</p>
+              <label>Choose billboard media</label>
+              <input id="imageInput" type="file" accept="image/*,video/*,audio/*,.ppt,.pptx" />
+              <button onclick="uploadImage()">Upload and add to board</button>
+              <div class="small">Images and videos rotate automatically. Audio can play after a viewer enables it. PPT/PPTX files need a public SITE_ROOT for Office viewer playback.</div>
+            </div>
+            <div class="card full">
+              <div class="actions">
+                <strong>Current billboard images</strong>
+                <button type="button" onclick="loadBillboardImageList()">Refresh list</button>
+              </div>
+              <div id="billboardImageList" class="image-list"></div>
+            </div>
+            <div class="card full">
+              <label>Slide title</label>
+              <textarea id="slideTitle"></textarea>
+              <label>Slide caption</label>
+              <textarea id="slideCaption"></textarea>
+              <label>Slide notes</label>
+              <textarea id="slideNotes"></textarea>
+              <div class="small">These values help describe the display slides shown on the digital billboard.</div>
+              <button type="button" onclick="saveSlideMetadata()">Save Slide Details</button>
+            </div>
+          </div>
+
+          <div id="slidesSection" class="grid hidden">
+            <div class="card full media-card">
+              <h3 style="margin-top:0; color:#003d82;">Upload PowerPoint or slide files</h3>
+              <p class="small" style="margin-top:0;">Use this section to upload presentation slides or website slide images. Image files uploaded here will also appear in the school website slide rotation, and you can remove them from this list when needed.</p>
+              <label>Choose slide file</label>
+              <input id="slideInput" type="file" accept=".ppt,.pptx,.pdf,.doc,.docx,.png,.jpg,.jpeg,.gif,.webp" />
+              <button onclick="uploadSlide()">Upload slide file</button>
+            </div>
+            <div class="card full">
+              <div class="actions">
+                <strong>Uploaded slides and presentations</strong>
+                <button type="button" onclick="loadSlidesList()">Refresh list</button>
+              </div>
+              <div id="slidesList" class="image-list"></div>
+            </div>
+          </div>
+
+          <div id="staffTourSection" class="grid hidden">
+            <div class="card full media-card">
+              <h3 style="margin-top:0; color:#003d82;">Manage staff-tour content</h3>
+              <p class="small" style="margin-top:0;">You can update staff-tour cards by changing the title, role, description and image URL below. Each change is saved and can be reviewed from the staff-tour page.</p>
+              <label>Staff-tour JSON editor</label>
+              <textarea id="staffTourEditor" style="min-height:240px;"></textarea>
+              <div class="small">Paste a JSON structure with sections and cards, or use the default sample data.</div>
+              <button onclick="saveStaffTourData()">Save Staff Tour Data</button>
+            </div>
+            <div class="card full">
+              <h3 style="margin-top:0; color:#003d82;">Staff-tour image upload</h3>
+              <label>Choose image</label>
+              <input id="staffImageInput" type="file" accept="image/*" />
+              <button onclick="uploadStaffImage()">Upload staff-tour image</button>
+              <div class="small">Uploaded images can be referenced in the staff-tour JSON using the returned URL.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card full">
+          <div class="chip-row">
+            <span class="chip" onclick="applyTemplate('daily')">Daily Update</span>
+            <span class="chip" onclick="applyTemplate('announcement')">Announcement</span>
+            <span class="chip" onclick="applyTemplate('calendar')">Calendar</span>
+            <span class="chip" onclick="applyTemplate('billboard')">Billboard</span>
+          </div>
+          <div class="preview-card">
+            <h3>Live content preview</h3>
+            <div id="previewContent"></div>
+          </div>
+          <div class="mini-log" id="activityLog">Last saved: none yet.</div>
+        </div>
+
+        <div class="card full">
+          <h3 style="margin-top:0; color:#003d82;">Recent admin activity</h3>
+          <div id="activityFeed" class="note-list"></div>
+        </div>
+
+        <div class="card full">
+          <div class="actions">
+            <button onclick="saveContent()">Save All Changes</button>
+            <button type="button" onclick="saveDraft()">Save Draft</button>
+            <button type="button" onclick="clearDraft()">Clear Draft</button>
+          </div>
+          <div id="status" class="status"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const sectionIds = ['home', 'about', 'academics', 'admissions', 'staff', 'gallery', 'billboard', 'media', 'slides', 'staffTour'];
+    const SESSION_STORAGE_KEY = 'whss-admin-session';
+    const SESSION_TTL_MS = 60 * 60 * 1000;
+    const INACTIVITY_TIMEOUT_MS = 60 * 60 * 1000;
+    let activeCredentials = { username: '', password: '' };
+    let activeAccount = null;
+    let inactivityTimer = null;
+
+    function clearInactivityTimer() {
+      if (inactivityTimer) {
+        clearTimeout(inactivityTimer);
+        inactivityTimer = null;
+      }
+    }
+
+    function resetInactivityTimer() {
+      if (!activeCredentials.username || !activeCredentials.password) return;
+      clearInactivityTimer();
+      inactivityTimer = setTimeout(() => {
+        logout();
+        const status = document.getElementById('loginStatus');
+        if (status) {
+          status.className = 'status error';
+          status.textContent = 'Session expired after inactivity. Please sign in again.';
+        }
+      }, INACTIVITY_TIMEOUT_MS);
+    }
+
+    function saveSession() {
+      if (activeCredentials.username && activeCredentials.password) {
+        localStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify({
+          username: activeCredentials.username,
+          password: activeCredentials.password,
+          savedAt: Date.now()
+        }));
+      } else {
+        localStorage.removeItem(SESSION_STORAGE_KEY);
+      }
+    }
+
+    function clearSession() {
+      clearInactivityTimer();
+      localStorage.removeItem(SESSION_STORAGE_KEY);
+    }
+
+    function showAuthScreen() {
+      clearInactivityTimer();
+      document.getElementById('loginScreen').classList.remove('hidden');
+      document.getElementById('dashboardShell').classList.add('hidden');
+      document.getElementById('loginUsername').value = '';
+      document.getElementById('loginPassword').value = '';
+      document.getElementById('loginStatus').className = 'status';
+      document.getElementById('loginStatus').textContent = '';
+    }
+
+    function showDashboard() {
+      document.getElementById('loginScreen').classList.add('hidden');
+      document.getElementById('dashboardShell').classList.remove('hidden');
+      resetInactivityTimer();
+      const displayName = activeAccount?.displayName || activeCredentials.username || 'admin';
+      document.getElementById('activeUser').textContent = displayName;
+      const accessBadge = document.getElementById('accessBadge');
+      if (accessBadge) {
+        accessBadge.innerHTML = activeAccount?.role === 'it_specialist' ? '<span>Full access</span><small>IT Specialist</small>' : '<span>Limited access</span><small>Content manager</small>';
+      }
+      updatePreview();
+    }
+
+    async function handleLogin(event) {
+      event.preventDefault();
+      const username = document.getElementById('loginUsername').value.trim();
+      const password = document.getElementById('loginPassword').value;
+      const status = document.getElementById('loginStatus');
+      status.className = 'status';
+      status.textContent = 'Signing in...';
+
+      try {
+        const res = await fetch('/api/admin/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password })
+        });
+        const result = await res.json();
+
+        if (res.ok && result.success) {
+          activeCredentials = { username, password };
+          activeAccount = result.user || null;
+          saveSession();
+          resetInactivityTimer();
+          status.className = 'status success';
+          status.textContent = 'Signed in successfully.';
+          showDashboard();
+          await loadContent();
+          await loadStaffTourContent();
+          await loadBillboardImageList();
+          await loadSlidesList();
+          await loadActivityFeed();
+        } else {
+          status.className = 'status error';
+          status.textContent = 'Incorrect username or password.';
+        }
+      } catch (error) {
+        status.className = 'status error';
+        status.textContent = 'Unable to sign in right now.';
+      }
+    }
+
+    function logout() {
+      activeCredentials = { username: '', password: '' };
+      activeAccount = null;
+      clearSession();
+      showAuthScreen();
+    }
+
+    function showSection(section) {
+      if (activeAccount && activeAccount.allowedSections && !activeAccount.allowedSections.includes(section) && !activeAccount.allowedSections.includes('home') && section !== 'home') {
+        const status = document.getElementById('status');
+        if (status) {
+          status.className = 'status error';
+          status.textContent = 'Your account can only access the sections assigned to it.';
+        }
+        return;
+      }
+      sectionIds.forEach((id) => {
+        const el = document.getElementById(`${id}Section`);
+        if (el) el.classList.toggle('hidden', id !== section);
+      });
+      document.querySelectorAll('.nav-btn').forEach((btn) => {
+        const text = btn.textContent.toLowerCase();
+        btn.classList.toggle('active', text.includes(section === 'home' ? 'home' : section));
+      });
+      updatePreview();
+    }
+
+    function getFieldValue(id) {
+      const el = document.getElementById(id);
+      return el ? el.value : '';
+    }
+
+    function parseLines(value) {
+      return value.split('\n').filter(Boolean);
+    }
+
+    function getContentPayload() {
+      return {
+        ticker: getFieldValue('ticker'),
+        principalMessage: getFieldValue('principalMessage'),
+        announcement: getFieldValue('announcement'),
+        newsItems: parseLines(getFieldValue('newsItems')).map(title => ({ title })),
+        calendarItems: parseLines(getFieldValue('calendarItems')).map(line => {
+          const parts = line.split('|');
+          return { date: parts[0]?.trim() || '', title: parts[1]?.trim() || '' };
+        }),
+        aboutHeading: getFieldValue('aboutHeading'),
+        aboutSummary: getFieldValue('aboutSummary'),
+        mission: getFieldValue('mission'),
+        values: getFieldValue('values'),
+        academicsIntro: getFieldValue('academicsIntro'),
+        subjectHighlights: parseLines(getFieldValue('subjectHighlights')),
+        admissionsIntro: getFieldValue('admissionsIntro'),
+        importantDates: parseLines(getFieldValue('importantDates')),
+        contactInfo: getFieldValue('contactInfo'),
+        staffIntro: getFieldValue('staffIntro'),
+        staffNotice: getFieldValue('staffNotice'),
+        galleryIntro: getFieldValue('galleryIntro'),
+        galleryHighlights: parseLines(getFieldValue('galleryHighlights')),
+        billboardTicker: getFieldValue('billboardTicker'),
+        billboardMessage: getFieldValue('billboardMessage'),
+        billboardSlides: parseLines(getFieldValue('billboardSlides')),
+        slideTitle: getFieldValue('slideTitle'),
+        slideCaption: getFieldValue('slideCaption'),
+        slideNotes: getFieldValue('slideNotes')
+      };
+    }
+
+    function updatePreview() {
+      const content = getContentPayload();
+      const preview = document.getElementById('previewContent');
+      if (!preview) return;
+      const homeItems = [content.ticker, content.principalMessage, content.announcement].filter(Boolean);
+      const billboardItems = [content.billboardTicker, content.billboardMessage].filter(Boolean);
+      const aboutItem = content.aboutHeading || content.aboutSummary;
+      const admissionsItem = content.admissionsIntro || content.contactInfo;
+      preview.innerHTML = `
+        <div style="display:grid;gap:10px;">
+          <div style="background:white;color:#123;border-radius:12px;padding:12px;">
+            <strong>Home preview</strong>
+            <div style="margin-top:8px;">${homeItems.length ? homeItems.map(item => `<div style="margin-bottom:6px;">${item}</div>`).join('') : '<div>No home content yet.</div>'}</div>
+          </div>
+          <div style="background:white;color:#123;border-radius:12px;padding:12px;">
+            <strong>About / admissions</strong>
+            <div style="margin-top:8px;">${aboutItem || admissionsItem ? `<div>${aboutItem || admissionsItem}</div>` : '<div>No section content yet.</div>'}</div>
+          </div>
+          <div style="background:white;color:#123;border-radius:12px;padding:12px;">
+            <strong>Digital board</strong>
+            <div style="margin-top:8px;">${billboardItems.length ? billboardItems.map(item => `<div style="margin-bottom:6px;">${item}</div>`).join('') : '<div>No digital board copy yet.</div>'}</div>
+          </div>
+        </div>
+      `;
+    }
+
+    function updateActivityLog(message) {
+      const log = document.getElementById('activityLog');
+      if (log) log.innerHTML = `<strong>Activity:</strong> ${message}`;
+    }
+
+    async function loadActivityFeed() {
+      const feed = document.getElementById('activityFeed');
+      if (!feed) return;
+      feed.innerHTML = '<div class="small">Loading recent activity...</div>';
+      try {
+        const res = await fetch(`/api/admin/activity-log?username=${encodeURIComponent(activeCredentials.username || '')}&password=${encodeURIComponent(activeCredentials.password || '')}`);
+        const entries = await res.json();
+        if (!Array.isArray(entries) || entries.length === 0) {
+          feed.innerHTML = '<div class="small">No activity recorded yet.</div>';
+          return;
+        }
+        feed.innerHTML = entries.slice().reverse().map((entry) => {
+          const timestamp = entry.timestamp ? new Date(entry.timestamp).toLocaleString() : 'Unknown time';
+          return `<li><strong>${entry.displayName || entry.username}</strong> — ${entry.action || 'activity'} at ${timestamp}</li>`;
+        }).join('');
+      } catch (error) {
+        feed.innerHTML = '<div class="small">Unable to load the activity log.</div>';
+      }
+    }
+
+    async function loadBillboardImageList() {
+      const list = document.getElementById('billboardImageList');
+      if (!list) return;
+      list.innerHTML = '<div class="small">Loading images...</div>';
+
+      try {
+        const res = await fetch(`/api/admin/billboard-media?username=${encodeURIComponent(activeCredentials.username || '')}&password=${encodeURIComponent(activeCredentials.password || '')}`);
+        const media = await res.json();
+        if (!Array.isArray(media) || media.length === 0) {
+          list.innerHTML = '<div class="small">No billboard images yet. Upload one to start the rotation.</div>';
+          return;
+        }
+
+        list.innerHTML = media.map((item) => {
+          const fileName = item.fileName || item.imageUrl.split('/').pop();
+          const uploaded = item.uploadedAt ? new Date(item.uploadedAt).toLocaleString() : 'Unknown date';
+          return `
+            <div class="image-list-item">
+              <div>
+                <strong>${fileName}</strong>
+                <small>${item.imageUrl}</small>
+                <small>Uploaded: ${uploaded}</small>
+              </div>
+              <button class="danger-btn" type="button" onclick="deleteBillboardImage('${encodeURIComponent(fileName)}')">Remove</button>
+            </div>
+          `;
+        }).join('');
+      } catch (error) {
+        list.innerHTML = '<div class="small">Unable to load the current billboard images.</div>';
+      }
+    }
+
+    async function deleteBillboardImage(fileName) {
+      if (!fileName) return;
+      const confirmed = confirm(`Remove ${fileName} from the billboard rotation?`);
+      if (!confirmed) return;
+
+      try {
+        const res = await fetch('/api/admin/billboard-image', {
+          method: 'DELETE',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username: activeCredentials.username, password: activeCredentials.password, filename: fileName })
+        });
+        const result = await res.json();
+        const status = document.getElementById('status');
+        if (res.ok && result.success) {
+          status.className = 'status success';
+          status.textContent = 'Image removed from the billboard rotation.';
+          updateActivityLog(`Removed ${fileName}.`);
+          await loadBillboardImageList();
+        } else {
+          status.className = 'status error';
+          status.textContent = 'Unable to remove the image. Check your admin credentials.';
+        }
+      } catch (error) {
+        const status = document.getElementById('status');
+        status.className = 'status error';
+        status.textContent = 'The removal request failed.';
+      }
+    }
+
+    function applyTemplate(type) {
+      const templates = {
+        daily: {
+          ticker: 'Daily update: Please check the latest school notice and important announcements.',
+          announcement: 'Today’s update: school operations continue as scheduled. Please review the latest notices.',
+          billboardTicker: 'Today’s update: Daily school notices and events.',
+          billboardMessage: 'Please check the latest announcements and school updates.'
+        },
+        announcement: {
+          announcement: 'Important notice: Please read the latest school announcement before the day begins.',
+          billboardMessage: 'Important announcement posted for today.'
+        },
+        calendar: {
+          calendarItems: '14 Jan 2026 | School reopens\n16 Jan 2026 | Grade 8 orientation day',
+          billboardSlides: 'Parents meeting\nSports day\nCareer expo'
+        },
+        billboard: {
+          billboardTicker: 'Today’s digital board update',
+          billboardMessage: 'Fresh updates are now available on the digital board.'
+        }
+      };
+
+      const chosen = templates[type];
+      if (!chosen) return;
+      Object.entries(chosen).forEach(([key, value]) => {
+        const el = document.getElementById(key);
+        if (el) el.value = value;
+      });
+      updatePreview();
+      updateActivityLog(`Applied ${type} template.`);
+    }
+
+    async function loadContent() {
+      const res = await fetch('/api/site-content');
+      const data = await res.json();
+      const draft = localStorage.getItem('whss-admin-draft');
+      if (draft) {
+        const parsed = JSON.parse(draft);
+        document.getElementById('ticker').value = parsed.ticker || '';
+        document.getElementById('principalMessage').value = parsed.principalMessage || '';
+        document.getElementById('announcement').value = parsed.announcement || '';
+        document.getElementById('newsItems').value = (parsed.newsItems || []).map(item => item.title || item).join('\n');
+        document.getElementById('calendarItems').value = (parsed.calendarItems || []).map(item => `${item.date || ''} | ${item.title || ''}`).join('\n');
+        document.getElementById('aboutHeading').value = parsed.aboutHeading || '';
+        document.getElementById('aboutSummary').value = parsed.aboutSummary || '';
+        document.getElementById('mission').value = parsed.mission || '';
+        document.getElementById('values').value = parsed.values || '';
+        document.getElementById('academicsIntro').value = parsed.academicsIntro || '';
+        document.getElementById('subjectHighlights').value = (parsed.subjectHighlights || []).join('\n');
+        document.getElementById('admissionsIntro').value = parsed.admissionsIntro || '';
+        document.getElementById('importantDates').value = (parsed.importantDates || []).join('\n');
+        document.getElementById('contactInfo').value = parsed.contactInfo || '';
+        document.getElementById('staffIntro').value = parsed.staffIntro || '';
+        document.getElementById('staffNotice').value = parsed.staffNotice || '';
+        document.getElementById('galleryIntro').value = parsed.galleryIntro || '';
+        document.getElementById('galleryHighlights').value = (parsed.galleryHighlights || []).join('\n');
+        document.getElementById('billboardTicker').value = parsed.billboardTicker || '';
+        document.getElementById('billboardMessage').value = parsed.billboardMessage || '';
+        document.getElementById('billboardSlides').value = (parsed.billboardSlides || []).join('\n');
+        updateActivityLog('Loaded saved draft from this device.');
+        updatePreview();
+        return;
+      }
+      document.getElementById('ticker').value = data.ticker || '';
+      document.getElementById('principalMessage').value = data.principalMessage || '';
+      document.getElementById('announcement').value = data.announcement || '';
+      document.getElementById('newsItems').value = (data.newsItems || []).map(item => item.title).join('\n');
+      document.getElementById('calendarItems').value = (data.calendarItems || []).map(item => `${item.date} | ${item.title}`).join('\n');
+      document.getElementById('aboutHeading').value = data.aboutHeading || '';
+      document.getElementById('aboutSummary').value = data.aboutSummary || '';
+      document.getElementById('mission').value = data.mission || '';
+      document.getElementById('values').value = data.values || '';
+      document.getElementById('academicsIntro').value = data.academicsIntro || '';
+      document.getElementById('subjectHighlights').value = (data.subjectHighlights || []).join('\n');
+      document.getElementById('admissionsIntro').value = data.admissionsIntro || '';
+      document.getElementById('importantDates').value = (data.importantDates || []).join('\n');
+      document.getElementById('contactInfo').value = data.contactInfo || '';
+      document.getElementById('staffIntro').value = data.staffIntro || '';
+      document.getElementById('staffNotice').value = data.staffNotice || '';
+      document.getElementById('galleryIntro').value = data.galleryIntro || '';
+      document.getElementById('galleryHighlights').value = (data.galleryHighlights || []).join('\n');
+      document.getElementById('billboardTicker').value = data.billboardTicker || '';
+      document.getElementById('billboardMessage').value = data.billboardMessage || '';
+      document.getElementById('billboardSlides').value = Array.isArray(data.billboardSlides) ? data.billboardSlides.join('\n') : (data.billboardSlides || '');
+      document.getElementById('slideTitle').value = data.slideTitle || '';
+      document.getElementById('slideCaption').value = data.slideCaption || '';
+      document.getElementById('slideNotes').value = data.slideNotes || '';
+      updatePreview();
+    }
+
+    async function saveContent() {
+      const payload = {
+        username: activeCredentials.username,
+        password: activeCredentials.password,
+        content: getContentPayload()
+      };
+
+      const res = await fetch('/api/site-content', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      const result = await res.json();
+      const status = document.getElementById('status');
+      if (res.ok && result.success) {
+        status.className = 'status success';
+        status.textContent = 'Saved successfully.';
+        updateActivityLog(`Saved content at ${new Date().toLocaleString()}.`);
+      } else {
+        status.className = 'status error';
+        status.textContent = 'Unable to save. Check your admin credentials.';
+      }
+    }
+
+    async function loadStaffTourContent() {
+      try {
+        const res = await fetch('/api/staff-tour');
+        const data = await res.json();
+        const editor = document.getElementById('staffTourEditor');
+        if (editor) {
+          editor.value = JSON.stringify(data, null, 2);
+        }
+      } catch (error) {
+        const editor = document.getElementById('staffTourEditor');
+        if (editor) editor.value = '{"sections": []}';
+      }
+    }
+
+    async function saveStaffTourData() {
+      const editor = document.getElementById('staffTourEditor');
+      let parsed = { sections: [] };
+      try {
+        parsed = JSON.parse(editor.value || '{}');
+      } catch (error) {
+        const status = document.getElementById('status');
+        status.className = 'status error';
+        status.textContent = 'Staff-tour data must be valid JSON.';
+        return;
+      }
+
+      const res = await fetch('/api/staff-tour', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username: activeCredentials.username, password: activeCredentials.password, staffTourData: parsed })
+      });
+      const result = await res.json();
+      const status = document.getElementById('status');
+      if (res.ok && result.success) {
+        status.className = 'status success';
+        status.textContent = 'Staff-tour data saved successfully.';
+        updateActivityLog('Saved staff-tour content.');
+      } else {
+        status.className = 'status error';
+        status.textContent = 'Unable to save staff-tour data.';
+      }
+    }
+
+    async function uploadStaffImage() {
+      const fileInput = document.getElementById('staffImageInput');
+      const file = fileInput.files[0];
+      if (!file) {
+        alert('Please choose an image first.');
+        return;
+      }
+      const formData = new FormData();
+      formData.append('image', file);
+      formData.append('username', activeCredentials.username);
+      formData.append('password', activeCredentials.password);
+      const res = await fetch('/api/admin/upload-staff-image', { method: 'POST', body: formData });
+      const result = await res.json();
+      const status = document.getElementById('status');
+      if (res.ok && result.success) {
+        status.className = 'status success';
+        status.textContent = 'Staff image uploaded successfully.';
+        updateActivityLog(`Uploaded staff image ${file.name}.`);
+        fileInput.value = '';
+        const editor = document.getElementById('staffTourEditor');
+        if (editor) {
+          const current = editor.value ? JSON.parse(editor.value) : { sections: [] };
+          editor.value = JSON.stringify(current, null, 2);
+        }
+      } else {
+        status.className = 'status error';
+        status.textContent = 'Staff image upload failed.';
+      }
+    }
+
+    async function loadSlidesList() {
+      const list = document.getElementById('slidesList');
+      if (!list) return;
+      list.innerHTML = '<div class="small">Loading slides...</div>';
+      try {
+        const res = await fetch('/api/presentation-slides');
+        const slides = await res.json();
+        if (!Array.isArray(slides) || slides.length === 0) {
+          list.innerHTML = '<div class="small">No slides uploaded yet.</div>';
+          return;
+        }
+        list.innerHTML = slides.map((item) => `
+          <div class="image-list-item">
+            <div>
+              <strong>${item.fileName}</strong>
+              <small>${item.fileUrl}</small>
+              <small>Uploaded: ${new Date(item.uploadedAt).toLocaleString()}</small>
+            </div>
+            <button class="danger-btn" type="button" onclick="deleteSlide('${encodeURIComponent(item.fileName)}')">Remove</button>
+          </div>
+        `).join('');
+      } catch (error) {
+        list.innerHTML = '<div class="small">Unable to load the uploaded slides.</div>';
+      }
+    }
+
+    async function deleteSlide(fileName) {
+      const confirmed = confirm('Remove this slide file from the portal?');
+      if (!confirmed) return;
+      try {
+        const res = await fetch('/api/admin/presentation-slide', {
+          method: 'DELETE',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username: activeCredentials.username, password: activeCredentials.password, filename: fileName })
+        });
+        const result = await res.json();
+        const status = document.getElementById('status');
+        if (res.ok && result.success) {
+          status.className = 'status success';
+          status.textContent = 'Slide file removed.';
+          updateActivityLog('Removed a presentation slide.');
+          await loadSlidesList();
+        } else {
+          status.className = 'status error';
+          status.textContent = 'Unable to remove the slide file.';
+        }
+      } catch (error) {
+        const status = document.getElementById('status');
+        status.className = 'status error';
+        status.textContent = 'The slide removal request failed.';
+      }
+    }
+
+    async function uploadSlide() {
+      const fileInput = document.getElementById('slideInput');
+      const file = fileInput.files[0];
+      if (!file) {
+        alert('Please choose a slide file first.');
+        return;
+      }
+      const formData = new FormData();
+      formData.append('slide', file);
+      formData.append('username', activeCredentials.username);
+      formData.append('password', activeCredentials.password);
+      const res = await fetch('/api/admin/upload-slide', { method: 'POST', body: formData });
+      const result = await res.json();
+      const status = document.getElementById('status');
+      if (res.ok && result.success) {
+        status.className = 'status success';
+        status.textContent = 'Slide file uploaded successfully.';
+        updateActivityLog(`Uploaded slide ${file.name}.`);
+        fileInput.value = '';
+        await loadSlidesList();
+      } else {
+        status.className = 'status error';
+        status.textContent = 'Slide upload failed.';
+      }
+    }
+
+    function saveDraft() {
+      const draft = getContentPayload();
+      localStorage.setItem('whss-admin-draft', JSON.stringify(draft));
+      const status = document.getElementById('status');
+      status.className = 'status success';
+      status.textContent = 'Draft saved locally on this device.';
+      updateActivityLog('Saved draft locally.');
+    }
+
+    function clearDraft() {
+      localStorage.removeItem('whss-admin-draft');
+      const status = document.getElementById('status');
+      status.className = 'status success';
+      status.textContent = 'Draft cleared.';
+      updateActivityLog('Cleared saved draft.');
+    }
+
+    async function uploadImage() {
+      const fileInput = document.getElementById('imageInput');
+      const file = fileInput.files[0];
+      if (!file) {
+        alert('Please choose an image first.');
+        return;
+      }
+      const formData = new FormData();
+      formData.append('image', file);
+      formData.append('username', activeCredentials.username);
+      formData.append('password', activeCredentials.password);
+      const res = await fetch('/api/admin/upload-image', { method: 'POST', body: formData });
+      const result = await res.json();
+      const status = document.getElementById('status');
+      if (res.ok && result.success) {
+        status.className = 'status success';
+        status.textContent = 'Image uploaded successfully. It will now rotate with the billboard slides.';
+        updateActivityLog(`Uploaded image ${file.name}.`);
+        fileInput.value = '';
+        await loadBillboardImageList();
+      } else {
+        status.className = 'status error';
+        status.textContent = 'Image upload failed. Check your admin credentials.';
+      }
+    }
+
+    function saveSlideMetadata() {
+      const payload = getContentPayload();
+      localStorage.setItem('whss-admin-draft', JSON.stringify(payload));
+      const status = document.getElementById('status');
+      status.className = 'status success';
+      status.textContent = 'Slide details saved locally. Use Save All Changes to publish them.';
+      updateActivityLog('Saved slide metadata.');
+    }
+
+    async function restoreSession() {
+      try {
+        const saved = JSON.parse(localStorage.getItem(SESSION_STORAGE_KEY) || 'null');
+        if (!saved?.username || !saved?.password || Date.now() - (saved.savedAt || 0) > SESSION_TTL_MS) {
+          clearSession();
+          return false;
+        }
+
+        activeCredentials = { username: saved.username, password: saved.password };
+        const status = document.getElementById('loginStatus');
+        if (status) {
+          status.className = 'status';
+          status.textContent = 'Restoring your admin session...';
+        }
+
+        const res = await fetch('/api/admin/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username: activeCredentials.username, password: activeCredentials.password })
+        });
+        const result = await res.json();
+
+        if (res.ok && result.success) {
+          activeAccount = result.user || null;
+          saveSession();
+          resetInactivityTimer();
+          showDashboard();
+          await loadContent();
+          await loadStaffTourContent();
+          await loadBillboardImageList();
+          await loadSlidesList();
+          await loadActivityFeed();
+          return true;
+        }
+
+        clearSession();
+        return false;
+      } catch (error) {
+        clearSession();
+        return false;
+      }
+    }
+
+    document.querySelectorAll('#dashboardShell textarea, #dashboardShell input:not([type="file"])').forEach((el) => {
+      el.addEventListener('input', updatePreview);
+    });
+
+    ['mousemove', 'keydown', 'click', 'scroll', 'touchstart'].forEach((eventName) => {
+      document.addEventListener(eventName, () => resetInactivityTimer(), true);
+    });
+
+    document.getElementById('loginForm').addEventListener('submit', handleLogin);
+    document.addEventListener('DOMContentLoaded', async () => {
+      const restored = await restoreSession();
+      if (!restored) {
+        showAuthScreen();
+      }
+      await loadBillboardImageList();
+      await loadSlidesList();
+    });
+  </script>
+</body>
+</html>

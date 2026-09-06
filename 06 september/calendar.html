@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>School Calendar – Waterkloof Hills Secondary School</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+
+    .calendar-page { padding: 80px 0; background: #eef4fb; }
+    .calendar-page h2 { font-size: 36px; color: #0c2d5a; margin-bottom: 10px; }
+    .calendar-page .subtitle { color: #5c697d; margin-bottom: 50px; font-size: 16px; max-width: 760px; line-height: 1.8; }
+
+    /* Term cards */
+    .terms-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px;
+      margin-bottom: 60px;
+    }
+
+    .term-card {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(15,23,42,.08);
+      border: 1px solid rgba(15,23,42,.08);
+    }
+
+    .term-header {
+      background: #0c2d5a;
+      color: white;
+      padding: 24px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .term-header h3 { font-size: 22px; margin: 0; }
+    .term-header .term-dates { font-size: 13px; opacity: 0.85; margin-top: 4px; }
+    .term-header .term-badge {
+      background: #f7941d;
+      color: white;
+      padding: 8px 16px;
+      border-radius: 24px;
+      font-size: 13px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .term-body { padding: 24px 28px; }
+
+    .event-list { list-style: none; margin: 0; padding: 0; }
+    .event-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 14px 0;
+      border-bottom: 1px solid #eef3f9;
+      font-size: 14px;
+      color: #475569;
+    }
+    .event-list li:last-child { border-bottom: none; }
+
+    .event-date {
+      min-width: 72px;
+      background: #eef3fb;
+      color: #0c2d5a;
+      font-weight: 700;
+      font-size: 12px;
+      text-align: center;
+      padding: 8px 10px;
+      border-radius: 8px;
+      line-height: 1.3;
+    }
+
+    .event-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 6px;
+    }
+    .dot-exam    { background: #e53e3e; }
+    .dot-event   { background: #f7941d; }
+    .dot-holiday { background: #38a169; }
+    .dot-meeting { background: #3182ce; }
+
+    /* Legend */
+    .legend {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      color: #475569;
+    }
+    .legend-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    /* Important Dates table */
+    .dates-section { margin-top: 20px; }
+    .dates-section h2 { font-size: 28px; color: #0c2d5a; margin-bottom: 24px; }
+
+    .dates-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 16px 32px rgba(15,23,42,.08);
+    }
+
+    .dates-table th {
+      background: #0c2d5a;
+      color: white;
+      padding: 16px 22px;
+      text-align: left;
+      font-size: 14px;
+    }
+
+    .dates-table td {
+      padding: 15px 22px;
+      font-size: 14px;
+      color: #475569;
+      border-bottom: 1px solid #f0f4f8;
+    }
+
+    .dates-table tr:last-child td { border-bottom: none; }
+    .dates-table tr:nth-child(even) td { background: #f9fbff; }
+
+    .badge-exam    { background: #ffe7e7; color: #c53030; padding: 4px 12px; border-radius: 14px; font-size: 12px; font-weight: 600; }
+    .badge-event   { background: #fff4e1; color: #c05621; padding: 4px 12px; border-radius: 14px; font-size: 12px; font-weight: 600; }
+    .badge-holiday { background: #ecfdf5; color: #166534; padding: 4px 12px; border-radius: 14px; font-size: 12px; font-weight: 600; }
+    .badge-meeting { background: #ebf4ff; color: #1d4ed8; padding: 4px 12px; border-radius: 14px; font-size: 12px; font-weight: 600; }
+
+    .year-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+      margin: 28px 0 40px;
+    }
+
+    .year-stat {
+      background: linear-gradient(180deg, #ffffff, #f7f9ff);
+      border-radius: 22px;
+      box-shadow: 0 18px 40px rgba(15,23,42,.08);
+      padding: 26px 26px;
+      border-top: 4px solid #f7941d;
+    }
+
+    .year-stat strong {
+      display: block;
+      color: #0c2d5a;
+      font-size: 15px;
+      margin-bottom: 8px;
+    }
+
+    .year-stat span {
+      color: #475569;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .year-plan-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin-top: 30px;
+    }
+
+    .month-card {
+      background: white;
+      border-radius: 22px;
+      box-shadow: 0 18px 40px rgba(15,23,42,.08);
+      overflow: hidden;
+    }
+
+    .month-card .month-head {
+      background: #0c2d5a;
+      color: white;
+      padding: 20px 24px;
+    }
+
+    .month-card .month-head h3 {
+      font-size: 20px;
+      margin-bottom: 4px;
+    }
+
+    .month-card .month-head p {
+      font-size: 13px;
+      opacity: .85;
+    }
+
+    .month-card .month-body {
+      padding: 20px 24px 24px;
+    }
+
+    .month-card ul {
+      padding-left: 18px;
+      color: #475569;
+      line-height: 1.8;
+    }
+
+    .month-card li { margin-bottom: 8px; }
+
+    .calendar-board {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin-top: 24px;
+    }
+
+    .calendar-billboard {
+      margin-bottom: 40px;
+    }
+
+    .billboard-panel {
+      background: linear-gradient(180deg, #ffffff, #f6f9ff);
+      border-radius: 24px;
+      box-shadow: 0 20px 48px rgba(15,23,42,.1);
+      padding: 32px;
+      border: 1px solid rgba(15,23,42,.08);
+    }
+
+    .billboard-rows {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 28px;
+    }
+
+    .billboard-item {
+      border: 1px solid rgba(15,23,42,.08);
+      border-radius: 18px;
+      padding: 22px;
+      background: #fcfdff;
+      display: flex;
+      gap: 18px;
+      margin-bottom: 18px;
+      align-items: flex-start;
+    }
+
+    .billboard-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .billboard-item .calendar-day {
+      min-width: 58px;
+      min-height: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #eef4ff;
+      border-radius: 16px;
+      box-shadow: inset 0 1px 0 rgba(0,0,0,.04);
+    }
+
+    .billboard-item .day-num {
+      color: #0c2d5a;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .billboard-item strong {
+      display: block;
+      color: #0c2d5a;
+      margin-bottom: 6px;
+    }
+
+    .billboard-item p {
+      color: #475569;
+      margin: 0;
+      line-height: 1.7;
+    }
+
+    .calendar-month {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 18px 40px rgba(15,23,42,.08);
+      overflow: hidden;
+    }
+
+    .calendar-month-head {
+      background: #0c2d5a;
+      color: white;
+      padding: 18px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .calendar-month-head h3 {
+      font-size: 20px;
+      margin: 0;
+    }
+
+    .calendar-month-head span {
+      font-size: 12px;
+      opacity: .85;
+      text-align: right;
+    }
+
+    .calendar-weekdays,
+    .calendar-days {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+    }
+
+    .calendar-weekdays div {
+      background: #f0f4f8;
+      color: #0c2d5a;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 10px 6px;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      border-right: 1px solid #e6edf4;
+      border-bottom: 1px solid #e6edf4;
+    }
+
+    .calendar-day {
+      min-height: 96px;
+      border-right: 1px solid #edf2f7;
+      border-bottom: 1px solid #edf2f7;
+      padding: 10px 10px 12px;
+      background: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .calendar-day.empty {
+      background: #fafbff;
+    }
+
+    .calendar-day .day-num {
+      font-size: 13px;
+      font-weight: 700;
+      color: #0c2d5a;
+      display: inline-block;
+      margin-bottom: 8px;
+    }
+
+    .calendar-day.event-event { box-shadow: inset 0 3px 0 #f7941d; }
+    .calendar-day.event-exam { box-shadow: inset 0 3px 0 #e53e3e; }
+    .calendar-day.event-holiday { box-shadow: inset 0 3px 0 #38a169; }
+    .calendar-day.event-meeting { box-shadow: inset 0 3px 0 #3182ce; }
+
+    .calendar-tag {
+      display: block;
+      font-size: 11px;
+      line-height: 1.35;
+      color: #334155;
+      background: #f7fafc;
+      border-radius: 8px;
+      padding: 6px 8px;
+      margin-top: 8px;
+      width: fit-content;
+    }
+
+    .calendar-tag.exam { background: #ffecec; color: #b91c1c; }
+    .calendar-tag.event { background: #fff5e7; color: #b45309; }
+    .calendar-tag.holiday { background: #ecfdf5; color: #166534; }
+    .calendar-tag.meeting { background: #eaf2ff; color: #1d4ed8; }
+
+    .school-age-note {
+      background: linear-gradient(135deg, #f7941d, #ffb347);
+      color: white;
+      border-radius: 18px;
+      padding: 26px 28px;
+      margin: 24px 0 44px;
+      box-shadow: 0 18px 40px rgba(15,23,42,.1);
+    }
+
+    .school-age-note strong {
+      display: block;
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    .school-age-note span {
+      font-size: 14px;
+      line-height: 1.8;
+      display: block;
+    }
+
+    @media (max-width: 768px) {
+      .terms-grid { grid-template-columns: 1fr; }
+      .dates-table { display: block; overflow-x: auto; }
+      .year-stats,
+      .year-plan-grid,
+      .calendar-board { grid-template-columns: 1fr; }
+      .calendar-day { min-height: 86px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <div class="container">
+      <div class="left">📍 2 Spain Drive, Waterkloof Ext 5, Rustenburg, 0299</div>
+      <div class="right">📞 076 809 0560 &nbsp;&nbsp; ✉ admin@waterkloofhillsschool.co.za</div>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header>
+    <div class="container nav-container">
+      <div class="logo">
+        <img src="images/school-logo.jpg" alt="School Logo">
+        <div><h2>Waterkloof Hills</h2><p>Wisdom Is Power</p></div>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="index.html#about">About Us</a></li>
+          <li><a href="index.html#academics">Academics</a></li>
+          <li><a href="subjects.html">Subjects</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="staff-tour.html">Staff Tour</a></li>
+          <li><a href="calendar.html" style="color:#f7941d;">Calendar</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <a href="admissions.html" class="apply-btn">Apply Now</a>
+      <a class="admin-login-icon" href="admin.html" title="Admin login" aria-label="Admin login">&#128100;</a>
+    </div>
+  </header>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="container">
+      <h1>School <span class="orange">Calendar</span> &amp; Year Plan 2026</h1>
+      <p>Term dates, school events and the WHSS year plan uploaded in the Word document.</p>
+    </div>
+  </section>
+
+  <!-- CALENDAR CONTENT -->
+  <section class="calendar-page">
+    <div class="container">
+
+      <h2>Academic Year 2026</h2>
+      <p class="subtitle">Waterkloof Hills Secondary School opened in 2022 and has been operating for 4 years. All dates are subject to change — follow school notices for updates.</p>
+
+      <div class="year-stats">
+        <div class="year-stat">
+          <strong>Established</strong>
+          <span>Opened in 2022 and serving the Rustenburg community.</span>
+        </div>
+        <div class="year-stat">
+          <strong>Years Operating</strong>
+          <span>4 years in 2026, with growing academic, cultural and sporting programmes.</span>
+        </div>
+        <div class="year-stat">
+          <strong>Year Plan Source</strong>
+          <span>Based on the uploaded <em>2026 WHSS Year Plan</em> Word document.</span>
+        </div>
+      </div>
+
+      <section class="calendar-billboard">
+        <div class="billboard-panel">
+          <h2>School Billboard</h2>
+          <p class="subtitle">Daily announcements, news and special events from the school calendar to keep everyone informed.</p>
+          <div class="billboard-rows">
+            <div>
+              <h3>Today</h3>
+              <div id="todayBoard"></div>
+            </div>
+            <div>
+              <h3>Upcoming</h3>
+              <div id="upcomingBoard"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="school-age-note">
+        <strong>About the school timeline</strong>
+        <span>Waterkloof Hills Secondary School opened in 2022. By 2026, the school has been operating for 4 years. The plan below follows the uploaded year-plan document and highlights the major dates and activities for the school year.</span>
+      </div>
+
+      <!-- Legend -->
+      <div class="legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#e53e3e;"></div> Examinations</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#f7941d;"></div> School Events</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#38a169;"></div> Public Holidays / School Holidays</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#3182ce;"></div> Meetings / Parents Evenings</div>
+      </div>
+
+      <h2 style="margin-top:50px;">2026 WHSS Year Plan</h2>
+      <p class="subtitle">Displayed in a calendar form so the month events read like a real school calendar.</p>
+
+      <div class="calendar-board" id="calendarBoard"></div>
+
+      <!-- Term Cards -->
+      <div class="terms-grid">
+
+        <!-- Term 1 -->
+        <div class="term-card">
+          <div class="term-header">
+            <div>
+              <h3>Term 1</h3>
+              <div class="term-dates">14 January – 27 March 2026</div>
+            </div>
+            <div class="term-badge">10 Weeks</div>
+          </div>
+          <div class="term-body">
+            <ul class="event-list">
+              <li><div class="event-date">14 Jan</div><div class="event-dot dot-event"></div><span>School reopens — all grades</span></li>
+              <li><div class="event-date">16 Jan</div><div class="event-dot dot-meeting"></div><span>Grade 8 orientation day</span></li>
+              <li><div class="event-date">21 Mar</div><div class="event-dot dot-holiday"></div><span>Human Rights Day (public holiday)</span></li>
+              <li><div class="event-date">27 Mar</div><div class="event-dot dot-holiday"></div><span>End of Term 1 — school closes</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Term 2 -->
+        <div class="term-card">
+          <div class="term-header">
+            <div>
+              <h3>Term 2</h3>
+              <div class="term-dates">7 April – 19 June 2026</div>
+            </div>
+            <div class="term-badge">11 Weeks</div>
+          </div>
+          <div class="term-body">
+            <ul class="event-list">
+              <li><div class="event-date">07 Apr</div><div class="event-dot dot-event"></div><span>School reopens — Term 2</span></li>
+              <li><div class="event-date">17 Apr</div><div class="event-dot dot-holiday"></div><span>Good Friday (public holiday)</span></li>
+              <li><div class="event-date">20 Apr</div><div class="event-dot dot-holiday"></div><span>Family Day (public holiday)</span></li>
+              <li><div class="event-date">27 Apr</div><div class="event-dot dot-holiday"></div><span>Freedom Day (public holiday)</span></li>
+              <li><div class="event-date">01 May</div><div class="event-dot dot-holiday"></div><span>Workers' Day (public holiday)</span></li>
+              <li><div class="event-date">16 Jun</div><div class="event-dot dot-holiday"></div><span>Youth Day (public holiday)</span></li>
+              <li><div class="event-date">23 Jun</div><div class="event-dot dot-exam"></div><span>Mid-year exams begin</span></li>
+              <li><div class="event-date">19 Jun</div><div class="event-dot dot-holiday"></div><span>End of Term 2 — school closes</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Term 3 -->
+        <div class="term-card">
+          <div class="term-header">
+            <div>
+              <h3>Term 3</h3>
+              <div class="term-dates">14 July – 25 September 2026</div>
+            </div>
+            <div class="term-badge">11 Weeks</div>
+          </div>
+          <div class="term-body">
+            <ul class="event-list">
+              <li><div class="event-date">14 Jul</div><div class="event-dot dot-event"></div><span>School reopens — Term 3</span></li>
+              <li><div class="event-date">Aug</div><div class="event-dot dot-exam"></div><span>Grade 12 Trial Examinations</span></li>
+              <li><div class="event-date">Aug</div><div class="event-dot dot-event"></div><span>Annual Sports Day</span></li>
+              <li><div class="event-date">Sep</div><div class="event-dot dot-meeting"></div><span>Grade 10 subject guidance evening</span></li>
+              <li><div class="event-date">24 Sep</div><div class="event-dot dot-holiday"></div><span>Heritage Day (public holiday)</span></li>
+              <li><div class="event-date">25 Sep</div><div class="event-dot dot-holiday"></div><span>End of Term 3 — school closes</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Term 4 -->
+        <div class="term-card">
+          <div class="term-header">
+            <div>
+              <h3>Term 4</h3>
+              <div class="term-dates">6 October – 4 December 2026</div>
+            </div>
+            <div class="term-badge">9 Weeks</div>
+          </div>
+          <div class="term-body">
+            <ul class="event-list">
+              <li><div class="event-date">06 Oct</div><div class="event-dot dot-event"></div><span>School reopens — Term 4</span></li>
+              <li><div class="event-date">Oct</div><div class="event-dot dot-exam"></div><span>NSC Final Exams — Grade 12</span></li>
+              <li><div class="event-date">Oct–Nov</div><div class="event-dot dot-exam"></div><span>Final Exams — Grade 8–11</span></li>
+              <li><div class="event-date">Nov</div><div class="event-dot dot-event"></div><span>Grade 12 Farewell</span></li>
+              <li><div class="event-date">Nov</div><div class="event-dot dot-meeting"></div><span>Prize Giving Ceremony</span></li>
+              <li><div class="event-date">16 Dec</div><div class="event-dot dot-holiday"></div><span>Day of Reconciliation (public holiday)</span></li>
+              <li><div class="event-date">04 Dec</div><div class="event-dot dot-holiday"></div><span>End of Term 4 — school year closes</span></li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Important Dates Table -->
+      <div class="dates-section">
+        <h2>Important Dates at a Glance</h2>
+        <table class="dates-table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Event</th>
+              <th>Grades</th>
+              <th>Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>14 January 2026</td><td>School reopens — Term 1</td><td>All</td><td><span class="badge-event">Event</span></td></tr>
+            <tr><td>16 January 2026</td><td>Grade 8 Orientation Day</td><td>Grade 8</td><td><span class="badge-event">Event</span></td></tr>
+            <tr><td>21 March 2026</td><td>Human Rights Day</td><td>All</td><td><span class="badge-holiday">Holiday</span></td></tr>
+            <tr><td>27 March 2026</td><td>End of Term 1</td><td>All</td><td><span class="badge-holiday">Holiday</span></td></tr>
+            <tr><td>7 April 2026</td><td>School reopens — Term 2</td><td>All</td><td><span class="badge-event">Event</span></td></tr>
+            <tr><td>27 April 2026</td><td>Freedom Day</td><td>All</td><td><span class="badge-holiday">Holiday</span></td></tr>
+            <tr><td>1 May 2026</td><td>Workers' Day</td><td>All</td><td><span class="badge-holiday">Holiday</span></td></tr>
+            <tr><td>16 June 2026</td><td>Youth Day</td><td>All</td><td><span class="badge-holiday">Holiday</span></td></tr>
+            <tr><td>23 June 2026</td><td>Mid-Year Examinations Begin</td><td>All</td><td><span class="badge-exam">Exam</span></td></tr>
+            <tr><td>19 June 2026</td><td>End of Term 2</td><td>All</td><td><span class="badge-holiday">Holiday</span></td></tr>
+            <tr><td>14 July 2026</td><td>School reopens — Term 3</td><td>All</td><td><span class="badge-event">Event</span></td></tr>
+            <tr><td>August 2026</td><td>Grade 12 Trial Examinations</td><td>Grade 12</td><td><span class="badge-exam">Exam</span></td></tr>
+            <tr><td>August 2026</td><td>Annual Sports Day</td><td>All</td><td><span class="badge-event">Event</span></td></tr>
+            <tr><td>24 September 2026</td><td>Heritage Day</td><td>All</td><td><span class="badge-holiday">Holiday</span></td></tr>
+            <tr><td>25 September 2026</td><td>End of Term 3</td><td>All</td><td><span class="badge-holiday">Holiday</span></td></tr>
+            <tr><td>6 October 2026</td><td>School reopens — Term 4</td><td>All</td><td><span class="badge-event">Event</span></td></tr>
+            <tr><td>October 2026</td><td>NSC Final Exams — Grade 12</td><td>Grade 12</td><td><span class="badge-exam">Exam</span></td></tr>
+            <tr><td>Oct – Nov 2026</td><td>Final Exams — Grade 8–11</td><td>Gr 8–11</td><td><span class="badge-exam">Exam</span></td></tr>
+            <tr><td>November 2026</td><td>Grade 12 Farewell</td><td>Grade 12</td><td><span class="badge-event">Event</span></td></tr>
+            <tr><td>November 2026</td><td>Prize Giving Ceremony</td><td>All</td><td><span class="badge-event">Event</span></td></tr>
+            <tr><td>4 December 2026</td><td>End of Term 4 — School Year Closes</td><td>All</td><td><span class="badge-holiday">Holiday</span></td></tr>
+            <tr><td>1 July – 30 Sep</td><td>2027 Admissions Applications Open</td><td>—</td><td><span class="badge-meeting">Admin</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <h3>Waterkloof Hills Secondary School</h3>
+      <p>Wisdom Is Power</p>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="subjects.html">Subjects</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="calendar.html">Calendar</a>
+        <a href="admissions.html">Admissions</a>
+        <a href="index.html#contact">Contact</a>
+      </div>
+      <p class="copyright">© 2026 Waterkloof Hills Secondary School. All rights reserved. Designed and developed by TIMBI OMNI GROUP HOLDING TECHNOLOGIES | 0762234837 | ttimbi51@gmail.com</p>
+    </div>
+  </footer>
+
+  <script src="js/site.js"></script>
+  <script src="js/chatbot.js"></script>
+  <script>
+    (function () {
+      const year = 2026;
+      const board = document.getElementById('calendarBoard');
+      if (!board) return;
+
+      const monthLabels = [
+        'January', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September', 'October', 'November', 'December'
+      ];
+
+      const monthSubtitles = [
+        'Term opening, cleaning and planning',
+        'Sports, leadership and support',
+        'Autumn events and photo day',
+        'Grade 12 camp and Term 2 start',
+        'Exams support and celebrations',
+        'Winter term and Youth Day',
+        'Mid-year return and sports focus',
+        'Women\'s Month and sports',
+        'Spring planning and learner meetings',
+        'Term 4 opens and reports',
+        'End-of-year preparations',
+        'Closing the school year'
+      ];
+
+      const eventMap = {
+        '2026-01-01': { type: 'holiday', label: 'New Year\'s Day' },
+        '2026-01-05': { type: 'event', label: 'Cleaning of the school' },
+        '2026-01-06': { type: 'event', label: 'Cleaning of the school' },
+        '2026-01-07': { type: 'event', label: 'Grade 12 learners start' },
+        '2026-01-08': { type: 'meeting', label: 'SQLTC invitations issued' },
+        '2026-01-12': { type: 'meeting', label: 'Teachers, SMT and subject meetings' },
+        '2026-01-13': { type: 'event', label: 'Term 1 learners start' },
+        '2026-01-14': { type: 'event', label: 'School re-opens' },
+        '2026-01-15': { type: 'meeting', label: 'Stakeholder meeting' },
+        '2026-01-16': { type: 'meeting', label: 'WHSS Athletic meeting' },
+        '2026-01-17': { type: 'event', label: 'Grade 12 extra classes' },
+        '2026-01-18': { type: 'event', label: 'Grade 8 camp' },
+        '2026-01-19': { type: 'event', label: 'Interhouse preparations' },
+        '2026-01-20': { type: 'event', label: 'Interhouse preparations' },
+        '2026-01-21': { type: 'event', label: 'Sports Day' },
+        '2026-01-22': { type: 'meeting', label: 'SGB meeting' },
+        '2026-01-23': { type: 'event', label: 'Grade 8 camp' },
+
+        '2026-02-04': { type: 'event', label: 'Sports Day' },
+        '2026-02-05': { type: 'event', label: 'QLTC launch' },
+        '2026-02-07': { type: 'event', label: 'Grade 12 extra classes' },
+        '2026-02-10': { type: 'meeting', label: 'Birthday notices' },
+        '2026-02-11': { type: 'event', label: 'Sports Day' },
+
+        '2026-03-01': { type: 'holiday', label: 'Beginning of autumn' },
+        '2026-03-04': { type: 'event', label: 'Sports Day' },
+        '2026-03-05': { type: 'event', label: 'Photo Day' },
+        '2026-03-07': { type: 'event', label: 'Grade 12 extra classes' },
+        '2026-03-08': { type: 'holiday', label: 'International Women\'s Day' },
+        '2026-03-11': { type: 'event', label: 'Sports Day' },
+        '2026-03-14': { type: 'event', label: 'Grade 12 extra classes' },
+
+        '2026-04-01': { type: 'event', label: 'Grade 12 camp' },
+        '2026-04-02': { type: 'event', label: 'Grade 12 camp' },
+        '2026-04-03': { type: 'holiday', label: 'Good Friday' },
+        '2026-04-04': { type: 'holiday', label: 'Holy Saturday' },
+        '2026-04-05': { type: 'holiday', label: 'Easter' },
+        '2026-04-06': { type: 'holiday', label: 'Family Day' },
+        '2026-04-07': { type: 'meeting', label: 'World Health Day / SMT meetings' },
+        '2026-04-08': { type: 'event', label: 'Start of Term 2' },
+        '2026-04-13': { type: 'meeting', label: 'Staff accountability meeting' },
+        '2026-04-14': { type: 'meeting', label: 'Parents intervention meeting' },
+
+        '2026-05-01': { type: 'holiday', label: 'Workers\' Day' },
+        '2026-05-04': { type: 'meeting', label: 'Invigilators training' },
+        '2026-05-06': { type: 'event', label: 'Sports Day' },
+        '2026-05-08': { type: 'event', label: 'Mother\'s Day celebration' },
+        '2026-05-09': { type: 'event', label: 'Grade 12 extra classes' },
+        '2026-05-10': { type: 'holiday', label: 'Mother\'s Day' },
+        '2026-05-13': { type: 'event', label: 'Sports Day' },
+        '2026-05-14': { type: 'meeting', label: 'SGB meeting' },
+
+        '2026-06-01': { type: 'holiday', label: 'Beginning of winter' },
+        '2026-06-06': { type: 'event', label: 'Grade 12 extra classes' },
+        '2026-06-12': { type: 'holiday', label: 'Youth Day celebrations' },
+        '2026-06-13': { type: 'event', label: 'Grade 12 extra classes' },
+        '2026-06-16': { type: 'holiday', label: 'Youth Day' },
+
+        '2026-07-01': { type: 'event', label: 'Sports Day' },
+        '2026-07-08': { type: 'event', label: 'Sports Day' },
+        '2026-07-13': { type: 'meeting', label: 'Mr Ditsi\'s birthday' },
+        '2026-07-15': { type: 'event', label: 'Sports Day' },
+
+        '2026-08-01': { type: 'event', label: 'Grade 12 extra classes' },
+        '2026-08-03': { type: 'meeting', label: 'Invigilation training' },
+        '2026-08-05': { type: 'event', label: 'Sports Day' },
+        '2026-08-07': { type: 'event', label: 'Women\'s Day awareness' },
+        '2026-08-08': { type: 'event', label: 'Grade 12 extra classes' },
+        '2026-08-09': { type: 'holiday', label: 'National Women\'s Day' },
+        '2026-08-12': { type: 'event', label: 'Sports Day' },
+
+        '2026-09-01': { type: 'holiday', label: 'Beginning of spring' },
+        '2026-09-02': { type: 'event', label: 'Sports Day' },
+        '2026-09-03': { type: 'meeting', label: 'Grade 12 parent meeting' },
+        '2026-09-05': { type: 'event', label: 'Colour Run' },
+        '2026-09-09': { type: 'event', label: 'Sports Day' },
+        '2026-09-12': { type: 'event', label: 'Grade 12 extra classes' },
+        '2026-09-14': { type: 'meeting', label: 'Staff meeting' },
+        '2026-09-24': { type: 'holiday', label: 'Heritage Day' },
+        '2026-09-25': { type: 'holiday', label: 'End of Term 3' },
+
+        '2026-10-05': { type: 'meeting', label: 'World Teachers\' Day / SMT meetings' },
+        '2026-10-06': { type: 'event', label: 'Start of Term 4' },
+        '2026-10-08': { type: 'meeting', label: 'Grade 12 meeting / reports' },
+        '2026-10-09': { type: 'meeting', label: 'Policy review and budget lekgotla' },
+
+        '2026-11-10': { type: 'meeting', label: 'Ms Diswai\'s birthday' },
+        '2026-11-13': { type: 'meeting', label: 'Ms Gavazzi\'s birthday' },
+
+        '2026-12-01': { type: 'holiday', label: 'Beginning of summer' },
+        '2026-12-02': { type: 'meeting', label: 'Mr Modise\'s birthday' },
+        '2026-12-09': { type: 'event', label: 'End of Year Learners' },
+        '2026-12-11': { type: 'meeting', label: 'End of Year Staff' }
+      };
+
+      function renderMonth(monthIndex) {
+        const monthName = monthLabels[monthIndex];
+        const startDay = new Date(year, monthIndex, 1).getDay();
+        const daysInMonth = new Date(year, monthIndex + 1, 0).getDate();
+        const monthStart = String(monthIndex + 1).padStart(2, '0');
+
+        const month = document.createElement('article');
+        month.className = 'calendar-month';
+        month.innerHTML = `
+          <div class="calendar-month-head">
+            <div>
+              <h3>${monthName}</h3>
+              <span>${monthSubtitles[monthIndex]}</span>
+            </div>
+            <span>${year}</span>
+          </div>
+          <div class="calendar-weekdays">
+            <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
+          </div>
+          <div class="calendar-days"></div>
+        `;
+
+        const daysGrid = month.querySelector('.calendar-days');
+
+        for (let i = 0; i < startDay; i++) {
+          const empty = document.createElement('div');
+          empty.className = 'calendar-day empty';
+          daysGrid.appendChild(empty);
+        }
+
+        for (let day = 1; day <= daysInMonth; day++) {
+          const dateKey = `${year}-${monthStart}-${String(day).padStart(2, '0')}`;
+          const event = eventMap[dateKey];
+          const dayCell = document.createElement('div');
+          dayCell.className = 'calendar-day';
+          if (event) dayCell.classList.add(`event-${event.type}`);
+          dayCell.innerHTML = `<div class="day-num">${day}</div>` + (event ? `<span class="calendar-tag ${event.type}">${event.label}</span>` : '');
+          daysGrid.appendChild(dayCell);
+        }
+
+        while (daysGrid.children.length % 7 !== 0) {
+          const empty = document.createElement('div');
+          empty.className = 'calendar-day empty';
+          daysGrid.appendChild(empty);
+        }
+
+        return month;
+      }
+
+      board.innerHTML = '';
+      for (let monthIndex = 0; monthIndex < 12; monthIndex++) {
+        board.appendChild(renderMonth(monthIndex));
+      }
+
+      renderBillboardEvents(eventMap, 'todayBoard', 'upcomingBoard', 7);
+    })();
+  </script>
+</body>
+</html>
