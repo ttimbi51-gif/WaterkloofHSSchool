@@ -1,2 +1,0 @@
-# WaterkloofHSSchool
-Admin Login Portal 
