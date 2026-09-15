@@ -1,0 +1,293 @@
+{
+  "sections": [
+    {
+      "title": "Leadership",
+      "cards": [
+        {
+          "name": "Jan S. Mokoena",
+          "role": "Principal",
+          "description": "Leading the school with integrity, purpose and a strong commitment to every learner’s success.",
+          "image": "images/staff/Principal_MOKOENA_J.jpg",
+          "link": "staff-profile.html?id=principal_mokoena_j"
+        },
+        {
+          "name": "N. Nong",
+          "role": "Deputy Principal",
+          "description": "Supporting teaching excellence, learner care and the smooth running of school operations.",
+          "image": "images/staff/Deputy_Principal_NONG_J.jpg",
+          "link": "staff-profile.html?id=deputy_principal_nong_j"
+        }
+      ]
+    },
+    {
+      "title": "Departmental Heads",
+      "cards": [
+        {
+          "name": "J. Mogale",
+          "role": "HOD",
+          "description": "Inspiring learners through strong leadership, collaborative teaching, and a focus on academic growth.",
+          "image": "images/staff/Educators_MOGALE_J.jpg",
+          "link": "staff-profile.html?id=educators_mogale_j"
+        },
+        {
+          "name": "T. Mohale",
+          "role": "HOD",
+          "description": "Inspiring learners through strong leadership, collaborative teaching, and a focus on academic growth.",
+          "image": "images/staff/Educators_MOHALE_T.jpg",
+          "link": "staff-profile.html?id=educators_mohale_t"
+        },
+        {
+          "name": "P. Nkwana",
+          "role": "HOD",
+          "description": "Inspiring learners through strong leadership, collaborative teaching, and a focus on academic growth.",
+          "image": "images/staff/Educators_NKWANA_P.jpg",
+          "link": "staff-profile.html?id=educators_nkwana_p"
+        }
+      ]
+    },
+    {
+      "title": "Educators",
+      "cards": [
+        {
+          "name": "R. Batantse",
+          "role": "Educator",
+          "description": "Committed to strong classroom support and learner progress.",
+          "image": "images/staff/Educators_BATANTSE_R.jpg",
+          "link": "staff-profile.html?id=educators_batantse_r"
+        },
+        {
+          "name": "K. Diswai",
+          "role": "Educator",
+          "description": "Focused on building confidence and academic achievement.",
+          "image": "images/staff/Educators_DISWAI_K.jpg",
+          "link": "staff-profile.html?id=educators_diswai_k"
+        },
+        {
+          "name": "Z. Joseph",
+          "role": "Educator",
+          "description": "Teaching with care and fostering a love for learning.",
+          "image": "images/staff/Educators_JOSEPH_Z.jpg",
+          "link": "staff-profile.html?id=educators_joseph_z"
+        },
+        {
+          "name": "L. Khupari",
+          "role": "Educator",
+          "description": "Guiding learners through critical thinking and exam readiness.",
+          "image": "images/staff/Educators_KHUPARI_L.jpg",
+          "link": "staff-profile.html?id=educators_khupari_l"
+        },
+        {
+          "name": "N. Langa",
+          "role": "Educator",
+          "description": "Committed to academic growth and learner discipline.",
+          "image": "images/staff/Educators_LANGA_N.jpg",
+          "link": "staff-profile.html?id=educators_langa_n"
+        },
+        {
+          "name": "O. Makhubalo",
+          "role": "Educator",
+          "description": "Support for practical learning and science subjects.",
+          "image": "images/staff/Educators_MAKHUBALO_O.jpg",
+          "link": "staff-profile.html?id=educators_makhubalo_o"
+        },
+        {
+          "name": "K. Mekgoe",
+          "role": "Educator",
+          "description": "Building strong study habits and academic confidence.",
+          "image": "images/staff/Educators_MEKGOE_K.jpg",
+          "link": "staff-profile.html?id=educators_mekgoe_k"
+        },
+        {
+          "name": "D. Mitton",
+          "role": "Educator",
+          "description": "Encouraging learner engagement and teamwork.",
+          "image": "images/staff/Educators_MITTON_D.jpg",
+          "link": "staff-profile.html?id=educators_mitton_d"
+        },
+        {
+          "name": "N. Motshegwe",
+          "role": "Educator",
+          "description": "Supporting learners in classroom success and respect.",
+          "image": "images/staff/Educators_MOTSHEGWE_N.jpg",
+          "link": "staff-profile.html?id=educators_motshegwe_n"
+        },
+        {
+          "name": "T. Moyo",
+          "role": "Educator",
+          "description": "Committed to learner participation and support.",
+          "image": "images/staff/Educators_MOYO_T.jpg",
+          "link": "staff-profile.html?id=educators_moyo_t"
+        },
+        {
+          "name": "N. Myathaza",
+          "role": "Educator",
+          "description": "Guiding learners through academic challenges.",
+          "image": "images/staff/Educators_MYATHAZA_N.jpg",
+          "link": "staff-profile.html?id=educators_myathaza_n"
+        },
+        {
+          "name": "P. Ngcobo",
+          "role": "Educator",
+          "description": "Focused on classroom quality and learner mentorship.",
+          "image": "images/staff/Educators_NGCOBO_P.jpg",
+          "link": "staff-profile.html?id=educators_ngcobo_p"
+        },
+        {
+          "name": "M. Ralimo",
+          "role": "Educator",
+          "description": "Supporting learners with strong classroom leadership.",
+          "image": "images/staff/Educators_RALIMO_M.jpg",
+          "link": "staff-profile.html?id=educators_ralimo_m"
+        },
+        {
+          "name": "M. Ramokopelwa",
+          "role": "Educator",
+          "description": "Focused on classroom excellence and learner support.",
+          "image": "images/staff/Educators_RAMOKOPELWA_M.jpg",
+          "link": "staff-profile.html?id=educators_ramokopelwa_m"
+        },
+        {
+          "name": "R. Rasephehi",
+          "role": "Educator",
+          "description": "Helping learners achieve strong results through practice.",
+          "image": "images/staff/Educators_RASEPHEHI_R.jpg",
+          "link": "staff-profile.html?id=educators_rasephehi_r"
+        },
+        {
+          "name": "D. Tsatsi",
+          "role": "Educator",
+          "description": "Encouraging learner involvement and success.",
+          "image": "images/staff/Educators_TSATSI_D.jpg",
+          "link": "staff-profile.html?id=educators_tsatsi_d"
+        },
+        {
+          "name": "M. Van Straten",
+          "role": "Educator",
+          "description": "Building confidence in mathematics and life skills.",
+          "image": "images/staff/Educators_VAN_STRATEN_M.jpg",
+          "link": "staff-profile.html?id=educators_van_straten_m"
+        }
+      ]
+    },
+    {
+      "title": "Finance",
+      "cards": [
+        {
+          "name": "C. Mbuyisa",
+          "role": "Finance",
+          "description": "Managing school finance and records to support smooth administration.",
+          "image": "images/staff/Admin_Staff_MBUYISA_C.jpg",
+          "link": "staff-profile.html?id=admin_staff_mbuyisa_c"
+        }
+      ]
+    },
+    {
+      "title": "Administration",
+      "cards": [
+        {
+          "name": "A. Gedu",
+          "role": "Administration",
+          "description": "Supporting office operations, finance and parent communication.",
+          "image": "images/staff/Admin_GEDU_A.jpg",
+          "link": "staff-profile.html?id=admin_gedu_a"
+        },
+        {
+          "name": "K. Seganeno",
+          "role": "Administration",
+          "description": "Coordinating school documents and supporting families with paperwork.",
+          "image": "images/staff/Admin_Staff_SEGANENO_K.jpg",
+          "link": "staff-profile.html?id=admin_staff_seganeno_k"
+        }
+      ]
+    },
+    {
+      "title": "General Support",
+      "cards": [
+        {
+          "name": "G. Jambato",
+          "role": "Support Staff",
+          "description": "Keeping the school clean, safe and welcoming every day.",
+          "image": "images/staff/General_JAMBATO_G.jpg",
+          "link": "staff-profile.html?id=general_jambato_g"
+        },
+        {
+          "name": "K. Mahopo",
+          "role": "Support Staff",
+          "description": "Maintaining school safety and supporting learners during the day.",
+          "image": "images/staff/General_MAHOPO_K.jpg",
+          "link": "staff-profile.html?id=general_mahopo_k"
+        },
+        {
+          "name": "T. Makgoka",
+          "role": "Support Staff",
+          "description": "Helping with school maintenance and learner wellbeing.",
+          "image": "images/staff/General_MAKGOKA_T.jpg",
+          "link": "staff-profile.html?id=general_makgoka_t"
+        },
+        {
+          "name": "K. Matshwisa",
+          "role": "Support Staff",
+          "description": "Ensuring school facilities are clean and comfortable for learners.",
+          "image": "images/staff/General_MATSHWISA_K.jpg",
+          "link": "staff-profile.html?id=general_matshwisa_k"
+        },
+        {
+          "name": "M. Mmokwa",
+          "role": "Support Staff",
+          "description": "Supporting school logistics and programmes behind the scenes.",
+          "image": "images/staff/General_MMOKWA_M.jpg",
+          "link": "staff-profile.html?id=general_mmokwa_m"
+        },
+        {
+          "name": "K. Mokwampe",
+          "role": "Support Staff",
+          "description": "Helping maintain a clean and orderly school campus.",
+          "image": "images/staff/General_MOKWAMPE_K.jpg",
+          "link": "staff-profile.html?id=general_mokwampe_k"
+        },
+        {
+          "name": "G. Nkosi",
+          "role": "Support Staff",
+          "description": "Working to keep classrooms and corridors in good order.",
+          "image": "images/staff/General_NKOSI_G.jpg",
+          "link": "staff-profile.html?id=general_nkosi_g"
+        },
+        {
+          "name": "M. Makunye",
+          "role": "Support Staff",
+          "description": "Supporting the school environment and helping keep daily operations running smoothly.",
+          "image": "images/staff/Educators_MAKUNYE_M.jpg",
+          "link": "staff-profile.html?id=general_makunye_m"
+        },
+        {
+          "name": "D. Ratsosane",
+          "role": "Support Staff",
+          "description": "Supporting the school routine and operations with care.",
+          "image": "images/staff/General_RATSOSANE_D.jpg",
+          "link": "staff-profile.html?id=general_ratsosane_d"
+        },
+        {
+          "name": "R. Senyane",
+          "role": "Support Staff",
+          "description": "Caring for the school environment and helping learners feel safe.",
+          "image": "images/staff/General_SENYANE_R.jpg",
+          "link": "staff-profile.html?id=general_senyane_r"
+        },
+        {
+          "name": "M. Sesampi",
+          "role": "Support Staff",
+          "description": "Keeping school spaces friendly and orderly.",
+          "image": "images/staff/General_SESAMPI_M.jpg",
+          "link": "staff-profile.html?id=general_sesampi_m"
+        },
+        {
+          "name": "T. Tlhabane",
+          "role": "Support Staff",
+          "description": "Helping the school run smoothly through everyday support tasks.",
+          "image": "images/staff/General_TLHABANE_T.jpg",
+          "link": "staff-profile.html?id=general_tlhabane_t"
+        }
+      ]
+    }
+  ]
+}
