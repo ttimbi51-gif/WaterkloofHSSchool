@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" role="img" aria-labelledby="title desc">
+  <title id="title">Waterkloof Hills Secondary School logo</title>
+  <desc id="desc">A blue and gold crest with WHSS initials</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#0b2d5f"/>
+      <stop offset="100%" stop-color="#184d8a"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#f7d57d"/>
+      <stop offset="100%" stop-color="#d79d2d"/>
+    </linearGradient>
+  </defs>
+  <rect x="10" y="10" width="220" height="220" rx="36" fill="url(#bg)"/>
+  <circle cx="120" cy="92" r="54" fill="none" stroke="url(#gold)" stroke-width="10"/>
+  <path d="M82 145h76M92 75h56M82 92h56M120 40v120" stroke="url(#gold)" stroke-width="8" stroke-linecap="round"/>
+  <text x="120" y="178" font-size="26" font-weight="700" text-anchor="middle" fill="#f8f3e8" font-family="Segoe UI, Arial, sans-serif">WHSS</text>
+</svg>
