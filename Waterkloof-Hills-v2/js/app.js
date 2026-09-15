@@ -1,0 +1,1 @@
+const s=['Welcome to Waterkloof Hills','Admissions Open 2027','Sports Day Friday'];let i=0;setInterval(()=>{i=(i+1)%s.length;document.getElementById('slide').textContent=s[i]},4000);function c(){document.getElementById('clock').textContent=new Date().toLocaleString()}c();setInterval(c,1000);
