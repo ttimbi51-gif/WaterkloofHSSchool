@@ -1,0 +1,102 @@
+/* Waterkloof Hills shared school theme */
+:root {
+  --school-blue: #061b3a;
+  --school-blue-2: #0b2d5f;
+  --school-yellow: #f6c344;
+  --school-yellow-2: #ffd968;
+  --school-ink: #10233f;
+  --school-paper: #f5f8fc;
+}
+
+body {
+  background: var(--school-paper);
+  color: var(--school-ink);
+}
+
+.top-bar,
+.hs-header,
+.topbar {
+  background-image: linear-gradient(90deg, rgba(6, 27, 58, .96), rgba(11, 45, 95, .86)), url('../images/School%20Pics%203/IMG_9013.jpeg');
+  background-size: cover;
+  background-position: center 42%;
+  border-bottom-color: var(--school-yellow);
+}
+
+footer {
+  background-image: linear-gradient(90deg, rgba(6, 27, 58, .96), rgba(11, 45, 95, .9)), url('../images/School%20Pics%203/IMG_9013.jpeg') !important;
+  background-size: cover;
+  background-position: center 58%;
+}
+
+header:has(.logo-area) {
+  background-image: linear-gradient(90deg, rgba(6, 27, 58, .96), rgba(11, 45, 95, .86)), url('../images/School%20Pics%203/IMG_9013.jpeg');
+  background-size: cover;
+  background-position: center 42%;
+  border-bottom-color: var(--school-yellow);
+}
+
+.top-bar,
+.top-bar a,
+.hs-header,
+.topbar,
+.topbar a {
+  color: #fff;
+}
+
+header {
+  border-bottom-color: var(--school-yellow) !important;
+}
+
+.logo h2,
+.logo h1,
+nav ul li a,
+.card h3,
+.card h1,
+.card h2,
+.info-card h2,
+.news-board h2 {
+  color: var(--school-blue) !important;
+}
+
+.logo p,
+nav ul li a:hover,
+.logo a:hover {
+  color: var(--school-yellow) !important;
+}
+
+button,
+.apply-btn,
+.nav-btn.active,
+.hero-btn,
+.cta,
+.admin-login-icon:hover,
+.admin-login-icon:focus-visible {
+  background: linear-gradient(135deg, var(--school-yellow), var(--school-yellow-2)) !important;
+  color: var(--school-blue) !important;
+}
+
+.info-card,
+.card,
+.gallery-card,
+.content-card {
+  border-color: rgba(6, 27, 58, .18);
+}
+
+.info-card,
+.gallery-card,
+.content-card {
+  border-left-color: var(--school-yellow) !important;
+}
+
+footer {
+  background: linear-gradient(135deg, var(--school-blue), var(--school-blue-2)) !important;
+  border-top-color: var(--school-yellow) !important;
+}
+
+@media (max-width: 600px) {
+  .top-bar,
+  .hs-header,
+  .topbar {
+    background-position: center;
+  }
+}
